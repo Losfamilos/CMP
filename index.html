@@ -22,16 +22,17 @@
         /* LOGO STYLING */
         .logo-container {
             text-align: center;
-            margin-bottom: 20px; 
+            margin-bottom: 5px; /* Mindre afstand end før for at matche Claude's look */
         }
         .ds-logo {
-            max-width: 200px; /* Juster denne værdi efter behov */
+            max-width: 180px; /* Justeret størrelse for at matche proportioner */
             height: auto;
         }
         h1 {
             text-align: center;
             color: #004d99;
             font-size: 2.2em;
+            margin-top: 0;
             margin-bottom: 5px;
         }
         .subtitle {
@@ -39,6 +40,7 @@
             font-style: italic;
             color: #666;
             margin-bottom: 30px;
+            font-size: 1.1em; /* Lidt større tekst end før */
         }
 
         /* ACCORDION HEADER STYLING (FUNNEL STEPS) */
@@ -56,12 +58,12 @@
             transition: background-color 0.3s;
         }
         /* FUNNEL FARVER */
-        .step-awareness { background-color: #9c27b0; } /* Lilla */
-        .step-interest { background-color: #2196f3; } /* Blå */
-        .step-consideration { background-color: #4caf50; } /* Grøn */
-        .step-evaluation { background-color: #ff9800; } /* Gul/Orange */
-        .step-purchase { background-color: #ff5722; } /* Orange/Rød */
-        .step-loyalty { background-color: #f44336; } /* Rød */
+        .step-awareness { background-color: #9c27b0; } 
+        .step-interest { background-color: #2196f3; } 
+        .step-consideration { background-color: #4caf50; } 
+        .step-evaluation { background-color: #ff9800; } 
+        .step-purchase { background-color: #ff5722; } 
+        .step-loyalty { background-color: #f44336; } 
 
         /* Pil ikon */
         .arrow {
@@ -85,12 +87,12 @@
 
         /* AI PRODUCT LEVEL STYLING (MATCH CLAUDE INDRE BOKSE) */
         .ai-product-level {
-            border: 1px solid #ddd;
-            background-color: white;
+            border: 1px solid #eee;
+            background-color: #fff;
             padding: 20px;
             margin-bottom: 20px;
             border-radius: 6px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Lettere skygge for Claude look */
             position: relative;
         }
         .ai-product-level h3 {
@@ -121,20 +123,29 @@
             font-weight: bold;
         }
         .ai-product-level .eksempler {
-            margin-top: 10px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
+            margin-top: 15px;
+            /* Fjernede border-top for renere look, ligesom Claude */
+            padding-top: 0;
+            font-size: 0.9em;
+            color: #666;
         }
         .ai-product-level .eksempler ul {
-            list-style-type: disc;
-            padding-left: 20px;
-            font-size: 0.9em;
+            list-style-type: none; /* Fjernede bullet points for enklere look */
+            padding-left: 0;
             margin-top: 5px;
+            font-size: 1em; /* Standard skriftstørrelse her */
             color: #555;
         }
+        .ai-product-level .eksempler ul li:before {
+            content: "•"; /* Bruger et unicode bullet point for kontrol */
+            color: #999;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
         .ai-product-level .maalgruppe {
-            background-color: #e8f5e9; 
-            color: #2e7d32;
+            background-color: #e3f2fd; /* Lysere blå baggrund */
+            color: #2196f3; /* Blå tekstfarve */
             padding: 10px 15px;
             border-radius: 4px;
             margin-top: 15px;
@@ -149,12 +160,15 @@
         }
         /* EKSTRA BOKS STYLING */
         .ai-product-level.extra-box {
-            background-color: #f0f0f0;
-            border: 1px dashed #bbb;
+            background-color: #f8f9fa; /* Endnu lysere baggrund */
+            border: 1px solid #ddd;
+        }
+        .ai-product-level.extra-box h3 {
+            color: #007bff;
         }
 
 
-        /* BUSINESS IMPACT STYLING */
+        /* BUSINESS IMPACT STYLING (MATCHES DIT BILLEDE) */
         .business-impact-section {
             margin-top: 40px;
             padding: 30px 0;
@@ -180,12 +194,12 @@
             margin-bottom: 5px;
         }
         .impact-box .value {
-            font-size: 1.5em;
+            font-size: 1.8em; /* Større værdi tal */
             font-weight: bold;
         }
-        .impact-box.top-funnel { background-color: #f3e5f5; }
-        .impact-box.conversion-rate { background-color: #e8f5e9; }
-        .impact-box.customer-ltv { background-color: #fbe9e7; }
+        .impact-box.top-funnel { background-color: #f3e5f5; border-color: #9c27b0; } /* Lilla/lyserød */
+        .impact-box.conversion-rate { background-color: #e8f5e9; border-color: #4caf50; } /* Grøn */
+        .impact-box.customer-ltv { background-color: #fbe9e7; border-color: #ff5722; } /* Orange/rød */
         .impact-box.top-funnel .value { color: #9c27b0; }
         .impact-box.conversion-rate .value { color: #4caf50; }
         .impact-box.customer-ltv .value { color: #ff5722; }
@@ -213,6 +227,33 @@
         .prototype-link-section a:hover {
             background-color: #1e7e34;
         }
+        /* Styling til den strategiske ramme sektion for at matche image_42191c.png */
+        .strategic-frame {
+            margin-top: 30px;
+            padding: 10px 0;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+        }
+        .strategic-frame p {
+            font-weight: normal;
+            font-style: italic;
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        .document-placeholder {
+            width: 100%;
+            height: 300px; /* Samme højde som i dit billede */
+            background-color: #e9ecef; /* Lys grå baggrund */
+            border: 1px solid #ced4da;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3em;
+            color: #adb5bd;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
@@ -225,6 +266,13 @@
     <h1>AI-Drevet Sales Funnel</h1>
     <p class="subtitle">Fra awareness til lifetime partnership - hele customer journey drevet af AI</p>
 
+    <div class="strategic-frame">
+        1. Kommerciel Strategisk Ramme
+        <p>Den overordnede strategi og markedsanalyse er defineret i dokumentet herunder, som danner grundlag for den interaktive prototype.</p>
+        <div class="document-placeholder">
+            <span style="font-size: 0.5em; color: #555;">Dokument Placeholder</span>
+        </div>
+    </div>
     <div class="accordion-header step-awareness" data-target="content-awareness">
         AWARENESS - Skab Opmærksomhed
         <span class="arrow">▼</span>
