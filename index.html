@@ -4,7 +4,7 @@
     <title>AI-Drevet Salgsfunnel & Produktstrategi for Dansk Standard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* BASE STYLING */
+        /* BASE & TYPOGRAPHY */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -31,7 +31,6 @@
             color: #666;
             margin-bottom: 30px;
         }
-
         /* ACCORDION HEADER STYLING (FUNNEL STEPS) */
         .accordion-header {
             padding: 18px;
@@ -46,12 +45,13 @@
             align-items: center;
             transition: background-color 0.3s;
         }
-        .step-awareness { background-color: #9c27b0; }
-        .step-interest { background-color: #2196f3; }
-        .step-consideration { background-color: #4caf50; }
-        .step-evaluation { background-color: #ff9800; }
-        .step-purchase { background-color: #ff5722; }
-        .step-loyalty { background-color: #f44336; }
+        /* FUNNEL FARVER */
+        .step-awareness { background-color: #9c27b0; } /* Lilla */
+        .step-interest { background-color: #2196f3; } /* Blå */
+        .step-consideration { background-color: #4caf50; } /* Grøn */
+        .step-evaluation { background-color: #ff9800; } /* Gul/Orange */
+        .step-purchase { background-color: #ff5722; } /* Orange/Rød */
+        .step-loyalty { background-color: #f44336; } /* Rød */
 
         /* Pil ikon */
         .arrow {
@@ -62,7 +62,6 @@
         .accordion-header.active .arrow {
             transform: rotate(180deg);
         }
-
         /* ACCORDION CONTENT STYLING */
         .accordion-content {
             padding: 20px 25px;
@@ -70,55 +69,110 @@
             border-top: none;
             border-radius: 0 0 5px 5px;
             background-color: #fff;
-            display: none; /* Starter lukket */
+            display: none;
         }
-        .accordion-content h3 {
-            color: #007bff;
-            margin-top: 10px;
-            border-bottom: 1px dotted #ccc;
-            padding-bottom: 5px;
-        }
-        .accordion-content ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        /* AI PRODUCT LEVEL STYLING (DE INDRE BOKSE - NYT LOOK) */
+        /* AI PRODUCT LEVEL STYLING (MATCH CLAUDE INDRE BOKSE) */
         .ai-product-level {
             border: 1px solid #ddd;
             background-color: white;
-            padding: 15px;
-            margin-bottom: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
             border-radius: 6px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Lidt dybere skygge */
             position: relative;
         }
         .ai-product-level h3 {
             color: #333;
             margin: 0 0 10px 0;
             font-size: 1.1em;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            border-bottom: none; /* Fjern dotted linje i den indre boks */
+            border-bottom: none;
         }
         .ai-product-level .icon {
             font-size: 1.5em;
             margin-right: 10px;
-            color: #007bff;
+            color: #007bff; /* Standard ikonfarve, kan overrides */
         }
-        .ai-product-level ul {
+        .ai-product-level .icon-purple { color: #9c27b0; }
+        .ai-product-level .icon-blue { color: #2196f3; }
+        .ai-product-level .icon-green { color: #4caf50; }
+        .ai-product-level .icon-orange { color: #ff9800; }
+        .ai-product-level .icon-red { color: #f44336; }
+
+        .ai-product-level p {
+            font-size: 0.9em;
+            margin-top: 5px;
+            color: #555;
+        }
+        .ai-product-level strong {
+            font-weight: bold;
+        }
+        .ai-product-level .eksempler {
+            margin-top: 10px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+        .ai-product-level .eksempler ul {
             list-style-type: disc;
             padding-left: 20px;
             font-size: 0.9em;
+            margin-top: 5px;
+            color: #555;
         }
-        .ai-product-level .goal {
+        .ai-product-level .maalgruppe {
             background-color: #e8f5e9; 
             color: #2e7d32;
-            padding: 8px 10px;
+            padding: 10px 15px;
             border-radius: 4px;
-            margin-top: 10px;
+            margin-top: 15px;
             font-weight: bold;
-            font-size: 0.9em;
+            font-size: 0.95em;
+            display: flex;
+            align-items: center;
         }
+        .ai-product-level .maalgruppe .chart-icon {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        /* BUSINESS IMPACT STYLING (Mangler i din kode) */
+        .business-impact-section {
+            margin-top: 40px;
+            padding: 30px 0;
+        }
+        .impact-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #f44336; /* Rød for impact */
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .impact-box {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+        }
+        .impact-box .label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .impact-box .value {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .top-funnel { color: #9c27b0; background-color: #f3e5f5; }
+        .conversion-rate { color: #4caf50; background-color: #e8f5e9; }
+        .customer-ltv { color: #ff5722; background-color: #fbe9e7; }
+        .impact-box.top-funnel .value { color: #9c27b0; }
+        .impact-box.conversion-rate .value { color: #4caf50; }
+        .impact-box.customer-ltv .value { color: #ff5722; }
+
 
         /* PROTOTYPE KNAP STYLING */
         .prototype-link-section {
@@ -148,153 +202,214 @@
 
 <div class="container">
 
-    <h1>AI-Drevet Sales Funnel for Dansk Standard</h1>
+    <p style="text-align: center; color: #004d99; font-weight: bold; margin-bottom: 10px;">DANSK STANDARD</p>
+    <h1>AI-Drevet Sales Funnel</h1>
     <p class="subtitle">Fra awareness til lifetime partnership - hele customer journey drevet af AI</p>
 
     <div class="accordion-header step-awareness" data-target="content-awareness">
-        AWARENESS - Skab Opmærksomhed (Loop folk ind i funnel)
+        AWARENESS - Skab Opmærksomhed
         <span class="arrow">▼</span>
     </div>
     <div class="accordion-content" id="content-awareness">
         <div class="ai-product-level">
-            <h3><span class="icon">&#9729;</span> AI Content Generator</h3>
-            <p>Automatisk generering af LinkedIn/blog posts baseret på nye standarder, regulering og branched trends.</p>
-            <ul>
-                <li>EKSEMPLER: NIS2 direktivet: 90 dage til compliance - Er I klar?</li>
-                <li>EKSEMPLER: Fødevareproducenter: Sådan undgår I de 3 største ISO 22000 fejl.</li>
-            </ul>
-            <div class="goal">Mål: 1000+ kvalificerede klik/måned</div>
+            <h3><span class="icon icon-purple">&#9729;</span> AI Content Generator</h3>
+            <p>Automatisk generering af LinkedIn/blog posts baseret på nye standarder, regulering og branched trends</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>NIS2-direktivet: 90 dage til compliance - Er I klar?</li>
+                    <li>Ny ISO 27001:2025 - 5 kritiske ændringer for IT-virksomheder</li>
+                    <li>Fødevareproducenter: Sådan undgår I de 3 største ISO 22000 fejl</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Mål: 1000+ kvalificerede klik/måned</div>
         </div>
 
         <div class="ai-product-level">
-            <h3><span class="icon">&#128276;</span> Predictive Outreach Engine</h3>
-            <p>AI identificerer virksomheder i risiko og prioriterer leads til salgs teamet.</p>
-            <ul>
-                <li>EKSEMPLER: Analyse af 5000 virksomheder - 200 high priority leads.</li>
-                <li>EKSEMPLER: Personaliserede outreach beskeder per branche.</li>
-            </ul>
-            <div class="goal">Mål: 3x flere kvalificerede møder</div>
+            <h3><span class="icon icon-purple">&#128276;</span> Predictive Outreach Engine</h3>
+            <p>AI identificerer virksomheder i risiko og prioriterer leads til salgs-teamet</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Analyse af 5000 virksomheder → 200 high-priority leads</li>
+                    <li>Personaliserede outreach-beskeder per branche</li>
+                    <li>Timing-optimering baseret på regulerings-deadlines</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Mål: 3x flere kvalificerede møder</div>
         </div>
     </div>
 
     <div class="accordion-header step-interest" data-target="content-interest">
-        INTEREST - Fang Interesse (Kvalificer leads og reducer friktion)
+        INTEREST - Fang Interesse
         <span class="arrow">▼</span>
     </div>
     <div class="accordion-content" id="content-interest">
         <div class="ai-product-level">
-            <h3><span class="icon">&#9989;</span> AI Lead Qualification Bot</h3>
-            <p>Chatbot på ds.dk der kvalificerer behov og router til relevant startpunkt.</p>
-            <ul>
-                <li>EKSEMPLER: Hvad er din primære udfordring? Compliance / Kvalitet / Cyber.</li>
-                <li>Mål: Samler email data før Niveau 0 content.</li>
-            </ul>
-            <div class="goal">Mål: 40% konvertering fra visitor til qualified lead</div>
+            <h3><span class="icon icon-blue">&#9989;</span> AI Lead Qualification Bot</h3>
+            <p>Chatbot på ds.dk der kvalificerer behov og router til relevant startpunkt</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Hvad er din primære udfordring? → Compliance / Kvalitet / Cyber</li>
+                    <li>Hvilken branche? → Router til relevant Niveau 0 content</li>
+                    <li>Samler email + data før Niveau 0</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Mål: 40% conversion fra visitor til qualified lead</div>
         </div>
 
         <div class="ai-product-level">
-            <h3><span class="icon">&#128233;</span> Smart Email Nurture</h3>
-            <p>AI drevet segmentering og personalisering baseret på branche / adfærd.</p>
-            <ul>
-                <li>EKSEMPLER: Krydssalg på nye standarder.</li>
-                <li>EKSEMPLER: Gradueret værditilførsel til nyhedsbrev subscribers.</li>
-            </ul>
-            <div class="goal">Mål: 25% open rate, 8% click-through</div>
+            <h3><span class="icon icon-blue">&#128233;</span> Smart Email Nurture</h3>
+            <p>AI-drevet segmentering og personalisering baseret på branche + adfærd</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Tidligere køber → Krydssalg på nye standards</li>
+                    <li>Lead fra webinar → Opfølgning med relevant case</li>
+                    <li>Nyhedsbrev-subscriber → Gradueret værditilførsel</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Mål: 25% open rate, 8% click-through</div>
         </div>
     </div>
 
     <div class="accordion-header step-consideration" data-target="content-consideration">
-        CONSIDERATION - Byg Tillid (Gør standarder tilgængelige og relevante)
+        CONSIDERATION - Byg Tillid
         <span class="arrow">▼</span>
     </div>
     <div class="accordion-content" id="content-consideration">
         <p>Denne fase involverer de første produktniveauer, som skaber tillid og relevans:</p>
 
         <div class="ai-product-level">
-            <h3><span class="icon">&#9989;</span> Niveau 0: AI Standard Selector™</h3>
-            <p>AI drevet filtrering fra 161.000 til 5-10 relevante standarder.</p>
-            <ul>
-                <li>Input: Branchekode / Segment.</li>
-                <li>Output: Kurateret liste med rationale.</li>
-                <li>CTA: Digitalt Køb (Niveau 1).</li>
-            </ul>
-            <div class="goal">Reducer navigation-kompleksitet med 93%</div>
+            <h3><span class="icon icon-green">&#9728;</span> Niveau 0: AI Standard Selector™</h3>
+            <p>AI-drevet filtrering fra 161.000 til 5-10 relevante standarder</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Input: Branchekode + Segment</li>
+                    <li>Output: Kurateret liste med rationale</li>
+                    <li>CTA: Digitalt køb (Niveau 1)</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Reducerer navigation-kompleksitet med 99%</div>
         </div>
 
         <div class="ai-product-level">
-            <h3><span class="icon">&#128190;</span> Niveau 1: Core – Digitalt Køb</h3>
-            <p>Direkte digital adgang til relevante standarder fra den kuraterede liste.</p>
-            <ul>
-                <li>EKSEMPLER: ISO 27001, ISO 27002, NIS2.</li>
-                <li>Søgbar database / Øjeblikkelig download.</li>
-            </ul>
-            <div class="goal">Laveste barriere for first purchase</div>
+            <h3><span class="icon icon-green">&#128190;</span> Niveau 1: Core – Digitalt Køb</h3>
+            <p>Direkte digital adgang til relevante standarder</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>ISO 27001, ISO 27002, NIS2</li>
+                    <li>Søgbar database</li>
+                    <li>Øjeblikkelig download</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Laveste barriere for first purchase</div>
         </div>
     </div>
 
     <div class="accordion-header step-evaluation" data-target="content-evaluation">
-        EVALUATION - Skab Værdi (Diagnosticer behov og vis ROI)
+        EVALUATION - Skab Værdi
         <span class="arrow">▼</span>
     </div>
     <div class="accordion-content" id="content-evaluation">
         <p>Denne fase leverer reel værdi, som diagnosticerer kundens problem:</p>
         
         <div class="ai-product-level">
-            <h3><span class="icon">&#128269;</span> Niveau 2: AI Standard Navigator™</h3>
-            <p>AI assisteret anbefaling af relevante afsnit - krydssalg.</p>
-            <ul>
-                <li>EKSEMPLER: Start med ISO 27001 afsnit 6.1.2.</li>
-                <li>Relaterede kurser: Intro til Cybersikkerhed.</li>
-            </ul>
-            <div class="goal">20% krydssalg til kurser/konsulentydelser</div>
+            <h3><span class="icon icon-orange">&#9432;</span> Niveau 2: AI Standard Navigator™</h3>
+            <p>AI-assisteret anbefaling af relevante afsnit + krydssalg</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Start med ISO 27001 afsnit 6.1.2</li>
+                    <li>Relaterede kurser: Intro til Cybersikkerhed</li>
+                    <li>Håndbøger: Implementation Guide</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> 20% krydssalg til kurser/konsulentydelser</div>
         </div>
 
         <div class="ai-product-level">
-            <h3><span class="icon">&#128200;</span> Niveau 3: AI Compliance Maturity Score™</h3>
-            <p>Digital diagnose via 8-12 spørgsmål - Målbar score.</p>
-            <ul>
-                <li>Output: Score 0-100 / gap analyse.</li>
-                <li>Gratis konsulentværdi som skaber pull til Niveau 4.</li>
-            </ul>
-            <div class="goal">Konvertering til Niveau 4: 35%</div>
+            <h3><span class="icon icon-orange">&#128200;</span> Niveau 3: AI Compliance Maturity Score™</h3>
+            <p>Digital diagnose via 8-12 spørgsmål → Målbar score</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Input: Quick questionnaire</li>
+                    <li>Output: Score 0-100 + gap-analyse</li>
+                    <li>Gratis konsulentværdi som skaber pull</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Konvertering til Niveau 4: 35%</div>
+        </div>
+
+        <div class="ai-product-level" style="background-color: #f0f0f0;">
+            <h3><span class="icon icon-blue">&#129302;</span> Hvordan AI'en beregner scoren (Dit Pitch-Svar)</h3>
+            <p>AI-scoren sammenligner kundens svar på 8-12 spørgsmål mod Dansk Standards **strukturerede vidensarkitektur**. Dette er ikke gætteri – det er baseret på:</p>
+            <div class="eksempler">
+                <ul>
+                    <li><strong>Vægtning:</strong> Hvert krav fra standarden vægtes efter risiko og branche.</li>
+                    <li><strong>Audit-Data:</strong> Data fra tusindvis af tidligere *audits* og *konsulentrapporter* træner AI'en i at identificere kritiske huller.</li>
+                    <li><strong>Mål:</strong> Resultatet er en datadrevet diagnose, der skaber *pull* til Niveau 4 (Roadmap).</li>
+                </ul>
+            </div>
         </div>
     </div>
 
     <div class="accordion-header step-purchase" data-target="content-purchase">
-        PURCHASE - Luk Salget (Konverter til betalende kunde)
+        PURCHASE - Luk Salget
         <span class="arrow">▼</span>
     </div>
     <div class="accordion-content" id="content-purchase">
         <p>Denne fase leverer den konkrete plan for at lukke salget:</p>
 
         <div class="ai-product-level">
-            <h3><span class="icon">&#128394;</span> Niveau 4: AI Implementation Roadmap™</h3>
-            <p>60-90 dages konkret plan baseret på Maturity Score.</p>
-            <ul>
-                <li>Uge 1-3: Governance templates.</li>
-                <li>Uge 4-6: KPI tracking setup.</li>
-                <li>Uge 7-9: Intern audit training.</li>
-            </ul>
-            <div class="goal">Første premium-produkt køb</div>
+            <h3><span class="icon icon-orange">&#128214;</span> Niveau 4: AI Implementation Roadmap™</h3>
+            <p>60-90 dages konkret plan baseret på Maturity Score</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Uge 1-3: Governance templates</li>
+                    <li>Uge 4-6: KPI-tracking setup</li>
+                    <li>Uge 7-9: Intern audit training</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Første premium-produkt køb</div>
         </div>
     </div>
 
     <div class="accordion-header step-loyalty" data-target="content-loyalty">
-        LOYALTY - Skab Partnerskab (Maksimer lifetime value)
+        LOYALTY - Skab Partnerskab
         <span class="arrow">▼</span>
     </div>
     <div class="accordion-content" id="content-loyalty">
         <p>Denne fase maksimerer kundeværdien og skaber langvarige partnerskaber:</p>
         
         <div class="ai-product-level">
-            <h3><span class="icon">&#128081;</span> Niveau 5: Full Service Suite</h3>
-            <p>Alt inklusiv pakke med hands-on support.</p>
-            <ul>
-                <li>Dedikeret DS eksperter.</li>
-                <li>Onsite audit forberedelse.</li>
-                <li>Løbende KPI tracking & certificering.</li>
-            </ul>
-            <div class="goal">Årlig recurring revenue per kunde</div>
+            <h3><span class="icon icon-red">&#128081;</span> Niveau 5: Full Service Suite</h3>
+            <p>Alt-inklusiv pakke med hands-on support</p>
+            <div class="eksempler">EKSEMPLER:
+                <ul>
+                    <li>Dedikeret DS-eksperter</li>
+                    <li>Onsite audit-forberedelse</li>
+                    <li>Løbende KPI-tracking & certificering</li>
+                </ul>
+            </div>
+            <div class="maalgruppe"><span class="chart-icon">&#128200;</span> Årlig recurring revenue per kunde</div>
+        </div>
+    </div>
+
+    <div class="business-impact-section">
+        <div class="impact-title">
+            <span class="icon-red" style="font-size: 1.6em; margin-right: 10px;">&#128337;</span> Business Impact
+        </div>
+
+        <div class="impact-box top-funnel">
+            <div class="label">Top af Funnel</div>
+            <div class="value">3x flere leads</div>
+        </div>
+
+        <div class="impact-box conversion-rate">
+            <div class="label">Conversion Rate</div>
+            <div class="value">40% kvalificer</div>
+        </div>
+
+        <div class="impact-box customer-ltv">
+            <div class="label">Customer LTV</div>
+            <div class="value">5x højere</div>
         </div>
     </div>
 
