@@ -3,487 +3,1134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS AI Product Staircase Demo (Niveau 0 til 5)</title>
+    <title>Risk Management & Governance - Jeppe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Spectral:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* BASE STIL */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f7f9;
-            color: #333;
-        }
-        header {
-            background-color: #004d99; /* DS Blå */
-            color: white;
-            padding: 2em 1em;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        h1 {
-            margin-bottom: 0.1em;
-            font-size: 1.8em;
-        }
-        .pitch-text {
-            font-size: 1.1em;
-            opacity: 0.9;
+            box-sizing: border-box;
         }
 
-        /* NIVEAU CONTAINERE */
-        .product-level {
-            padding: 30px;
-            margin: 20px auto;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            transition: transform 0.3s ease;
-        }
-        .product-level:hover {
-            transform: translateY(-5px);
-        }
-        .product-level h2 {
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 1.5em;
-        }
-        
-        /* 💡 TRAVERSAL LOGIK: VISER KUN NIVEAU 0 VED START */
-        .product-level:not(#level0) {
-            display: none; 
+        :root {
+            --mckinsey-navy: #002855;
+            --mckinsey-blue: #0066cc;
+            --accent-gold: #c9a961;
+            --accent-red: #d14124;
+            --charcoal: #333333;
+            --light-gray: #f5f5f5;
+            --border-gray: #e0e0e0;
         }
 
-        /* Farveskema for niveauerne */
-        .level0 { background-color: #f0f0f5; border-left: 8px solid #666699; }
-        .level0 h2 { border-color: #666699; border-bottom: 3px solid #666699; }
-
-        .core { background-color: #e6f7ff; border-left: 8px solid #004d99; }
-        .core h2 { border-color: #004d99; border-bottom: 3px solid #004d99; }
-
-        .navigator { background-color: #fff0e6; border-left: 8px solid #ff7f0e; }
-        .navigator h2 { border-color: #ff7f0e; border-bottom: 3px solid #ff7f0e; }
-
-        .score { background-color: #f7e6ff; border-left: 8px solid #9933ff; }
-        .score h2 { border-color: #9933ff; border-bottom: 3px solid #9933ff; }
-
-        .roadmap { background-color: #e6ffe6; border-left: 8px solid #33cc33; }
-        .roadmap h2 { border-color: #33cc33; border-bottom: 3px solid #33cc33; }
-
-        /* 👑 NIVEAU 5: EKSLUSIVT DESIGN (Højere margin/skyggen) */
-        .fullservice { 
-            background-color: #fffff0; 
-            border-left: 8px solid #ffcc00; 
-            border-top: 4px solid gold; /* Guld kant */
-            box-shadow: 0 10px 20px rgba(255, 187, 0, 0.3); /* Kraftigere skygge */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: white;
+            color: var(--charcoal);
+            overflow: hidden;
+            height: 100vh;
         }
-        .fullservice h2 { border-color: #ffcc00; border-bottom: 3px solid #ffcc00; }
 
-        /* AI INFO BOKS */
-        .ai-info-box {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: none; /* Starter skjult */
+        /* Full-screen slide container - NO SCROLLING */
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
         }
-        .ai-info-box h3 {
-            color: #004d99;
-            margin-top: 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+
+        /* Minimal Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            border-bottom: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+            z-index: 1000;
         }
-        
-        /* Spørgsmål Layout */
-        .question-group {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-left: 3px solid #9933ff;
-            background-color: #fcfcff;
+
+        .nav-logo {
+            font-family: 'Spectral', serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--mckinsey-navy);
         }
-        .question-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
+
+        .nav-controls {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
-        .question-group select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ccc;
+
+        .slide-indicator {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .slide-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .slide-dot.active {
+            background: var(--mckinsey-navy);
+            width: 24px;
             border-radius: 4px;
         }
 
-        .value-box {
-            margin-top: 15px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 5px;
-            border: 1px dashed #ccc;
-        }
-        .demo-box {
-            padding: 15px;
-            margin: 15px 0;
-            background-color: rgba(255, 255, 255, 0.9);
-            border-radius: 5px;
-            border: 1px solid #ddd;
+        .slide-dot:hover {
+            background: var(--mckinsey-blue);
         }
 
-        /* NIVEAU 1: SØGEFELTSIMULERING */
-        #level1 .demo-box {
+        /* Full-screen slides */
+        .slide {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
             display: flex;
             align-items: center;
-        }
-        #search-input {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid #004d99;
-            border-radius: 5px 0 0 5px;
-            font-size: 1em;
-        }
-        #search-button {
-            background-color: #004d99;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 1em;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
+            justify-content: center;
+            padding: 4rem 6rem;
         }
 
-        /* NIVEAU 2: KLIKBART LINK */
-        .recommendation {
-            font-style: italic;
-            color: #004d99;
-            font-weight: bold;
-        }
-        .clickable-link {
-            color: #004d99;
-            text-decoration: underline;
-            cursor: pointer;
-            font-weight: bold;
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
         }
 
-        /* NIVEAU 3 & knapper */
-        button {
-            background-color: #ff7f0e;
+        .slide-content {
+            width: 100%;
+            max-width: 1400px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Title Slide - McKinsey style */
+        .title-slide {
+            background: var(--mckinsey-navy);
+        }
+
+        .title-slide .slide-content {
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .main-title {
+            font-family: 'Spectral', serif;
+            font-size: 3.5rem;
+            font-weight: 300;
             color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 1em;
-            border-radius: 5px;
+            line-height: 1.2;
+            margin-bottom: 2rem;
+            max-width: 900px;
+        }
+
+        .title-divider {
+            width: 80px;
+            height: 3px;
+            background: var(--accent-gold);
+            margin: 2rem 0;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0.5rem;
+        }
+
+        .sub-subtitle {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 3rem;
+        }
+
+        .presenter-info {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 4rem;
+            font-weight: 300;
+        }
+
+        /* Content Slides */
+        .section-header {
+            font-family: 'Spectral', serif;
+            font-size: 2.2rem;
+            font-weight: 400;
+            color: var(--mckinsey-navy);
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-gold);
+        }
+
+        /* Expandable Items */
+        .expandable-item {
+            background: white;
+            border: 1px solid var(--border-gray);
+            margin-bottom: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .expandable-item:hover {
+            border-color: var(--mckinsey-blue);
+            box-shadow: 0 2px 8px rgba(0, 40, 85, 0.08);
+        }
+
+        .expandable-header {
+            padding: 1.5rem 2rem;
             cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            background: var(--light-gray);
         }
-        button:hover {
-            background-color: #cc6600;
+
+        .expandable-header:hover {
+            background: #ebebeb;
         }
-        .result-display {
-            margin-top: 15px;
-            padding: 15px;
-            border: 2px solid #9933ff;
-            border-radius: 5px;
-            background-color: white;
-            font-weight: bold;
-            min-height: 100px; /* Sikrer at feltet ikke hopper */
+
+        .expandable-title {
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--mckinsey-navy);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .expand-icon {
+            color: var(--mckinsey-blue);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+            font-weight: 300;
+        }
+
+        .expandable-item.expanded .expand-icon {
+            transform: rotate(90deg);
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            padding: 0 2rem;
+        }
+
+        .expandable-item.expanded .expandable-content {
+            max-height: 800px;
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .expandable-content p,
+        .expandable-content ul {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--charcoal);
+        }
+
+        .expandable-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .expandable-content li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .expandable-content li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--mckinsey-blue);
+            font-weight: 600;
+        }
+
+        /* McKinsey-style table */
+        .mckinsey-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .mckinsey-table th {
+            background: var(--mckinsey-navy);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .mckinsey-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-gray);
+            vertical-align: top;
+        }
+
+        .mckinsey-table tbody tr:hover {
+            background: var(--light-gray);
+        }
+
+        .mckinsey-table td:first-child {
+            font-weight: 600;
+            color: var(--mckinsey-navy);
+        }
+
+        /* Priority Grid */
+        .priority-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .priority-card {
+            background: white;
+            border: 1px solid var(--border-gray);
+            padding: 2rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .priority-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--mckinsey-blue);
+        }
+
+        .priority-card:hover {
+            border-color: var(--mckinsey-blue);
+            box-shadow: 0 4px 12px rgba(0, 40, 85, 0.1);
+        }
+
+        .priority-card h3 {
+            font-family: 'Spectral', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--mckinsey-navy);
+            margin-bottom: 1rem;
+        }
+
+        .priority-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .priority-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.2rem;
+            position: relative;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .priority-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--mckinsey-blue);
+            font-size: 1.2rem;
+        }
+
+        .priority-card.immediate::before { background: #d14124; }
+        .priority-card.short-term::before { background: #f39c12; }
+        .priority-card.medium-term::before { background: #0066cc; }
+        .priority-card.culture::before { background: #c9a961; }
+
+        /* Insight Box */
+        .insight-box {
+            background: var(--light-gray);
+            border-left: 3px solid var(--accent-gold);
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .insight-box strong {
+            color: var(--mckinsey-navy);
+            font-weight: 600;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background: white;
+            border-top: 1px solid var(--border-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: none;
+            border: 1px solid var(--mckinsey-navy);
+            color: var(--mckinsey-navy);
+            padding: 0.7rem 2rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            background: var(--mckinsey-navy);
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .nav-btn.primary {
+            background: var(--mckinsey-navy);
+            color: white;
+        }
+
+        .nav-btn.primary:hover:not(:disabled) {
+            background: var(--mckinsey-blue);
+            border-color: var(--mckinsey-blue);
+        }
+
+        /* Speaker Notes */
+        .notes-panel {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            max-height: 35vh;
+            background: var(--mckinsey-navy);
+            color: white;
+            padding: 2rem 4rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .notes-panel.active {
+            transform: translateY(0);
+        }
+
+        .notes-panel h4 {
+            font-family: 'Spectral', serif;
+            color: var(--accent-gold);
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .notes-panel p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        .notes-toggle {
+            background: none;
+            border: 1px solid var(--border-gray);
+            color: var(--charcoal);
+            padding: 0.7rem 1.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .notes-toggle:hover {
+            border-color: var(--mckinsey-navy);
+            background: var(--light-gray);
+        }
+
+        .notes-toggle.active {
+            background: var(--mckinsey-navy);
+            color: white;
+            border-color: var(--mckinsey-navy);
+        }
+
+        /* Scrollable content wrapper */
+        .scrollable-content {
+            max-height: calc(100vh - 200px);
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        /* Custom scrollbar */
+        .scrollable-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .scrollable-content::-webkit-scrollbar-track {
+            background: var(--light-gray);
+        }
+
+        .scrollable-content::-webkit-scrollbar-thumb {
+            background: var(--mckinsey-blue);
+            border-radius: 3px;
+        }
+
+        @media (max-width: 1200px) {
+            .main-title {
+                font-size: 2.8rem;
+            }
+
+            .section-header {
+                font-size: 1.8rem;
+            }
+
+            .slide {
+                padding: 3rem 4rem;
+            }
+
+            .top-nav, .bottom-nav {
+                padding: 0 2rem;
+            }
+
+            .priority-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-
-    <header>
-        <h1>🚀 DS AI-drevet Standardprodukt (Niveau 0 til 5)</h1>
-        <p class="pitch-text">En skalerbar portefølje, der transformerer Dansk Standard fra dokumentleverandør til AI-platform-leverandør.</p>
-    </header>
-
-    <main>
-        <section id="level0" class="product-level level0">
-            <h2>🔹 Niveau 0: AI Standard Selector™ (Industry Mapping)</h2>
-            <p><strong>Hvad kunden får:</strong> Simpel AI-drevet filtrering, der kuraterer listen over relevante ISO/DS-standarder baseret på branche og segment.</p>
-            <div class="demo-box interactive">
-                <p><strong>SIMULERET INPUT:</strong></p>
-                <select id="industry-select" style="padding: 8px;">
-                    <option value="">Vælg branchekode (fx 26.110)</option>
-                    <option value="it">IT & Elektronik</option>
-                    <option value="food">Fødevareproduktion</option>
-                </select>
-                <select id="segment-select" style="padding: 8px; margin-left: 10px;">
-                    <option value="">Vælg segment (fx Cyber Security)</option>
-                    <option value="cyber">Cyber Security</option>
-                    <option value="quality">Kvalitetsstyring</option>
-                </select>
-                <button onclick="goToLevel1()" style="margin-top: 15px; display: block; width: 100%;">Find relevante standarder</button>
+    <div class="presentation-container">
+        <!-- Top Navigation -->
+        <nav class="top-nav">
+            <div class="nav-logo">RISK MANAGEMENT & GOVERNANCE</div>
+            <div class="nav-controls">
+                <div class="slide-indicator" id="slide-indicator"></div>
             </div>
-            <div class="value-box">
-                <p>📈 <strong>DS Værdi:</strong> Reducerer navigationskompleksitet fra 161.000 til 5-10 standarder. Fungerer som <strong>Digitalt Leadsystem</strong> (Top-of-Funnel).</p>
-                <p>🎯 <strong>Mål:</strong> Sikre kunden køber den rigtige standard fra start. Øge konverteringsraten til Niveau 1.</p>
-            </div>
-        </section>
+        </nav>
 
-        <section id="level1" class="product-level core">
-            <h2>🔹 Niveau 1: Core – Digitalt Køb</h2>
-            <p><strong>Hvad kunden får:</strong> Digital adgang til relevante ISO/DS-standarder fra den kuraterede liste.</p>
-            <div class="demo-box">
-                <p><strong>SIMULERET KØBS- OG SØGEINTERFACE:</strong></p>
-                <div style="display: flex;">
-                    <input type="text" id="search-input" value="Søg i dine 5 relevante standarder..." readonly>
-                    <button id="search-button">Søg</button>
-                </div>
-                <ul style="margin-top: 10px; font-size: 0.9em;">
-                    <li>ISO 27001 [KØB]</li>
-                    <li>ISO 27002 [KØB]</li>
-                    <li>NIS2 [KØB]</li>
-                </ul>
-            </div>
-            <div class="value-box">
-                <p>💡 <strong>Værdi:</strong> Hurtigt, billigt, fundamentalt. Laveste barriere for at engagere nye kunder.</p>
-                <p>🎯 <strong>Mål:</strong> Øget standardsalg (øger salg af de 161.000 produkter via AI-filtrering).</p>
-            </div>
-        </section>
-
-        <section id="level2" class="product-level navigator">
-            <h2>🧠 Niveau 2: AI Standard Navigator™ (Guided Recommendations)</h2>
-            <p><strong>Hvad kunden får:</strong> AI-assisteret anbefaling af relevante standarder og afsnit, prioriteret efter kundens behov.</p>
-            <div class="demo-box">
-                <p><strong>SIMULERET ANBEFALING:</strong></p>
-                <div class="recommendation">
-                    "Start med <strong><span class="clickable-link">ISO 27001</span></strong> afsnit 6.1.2, tilpasset jeres IT & cyber-risiko niveau. Relaterede kursus: *Introduktion til Cybersikkerhed*."
+        <!-- Slide 1: Title -->
+        <div class="slide active title-slide" data-slide="1">
+            <div class="slide-content">
+                <h1 class="main-title">Styrkelse af Risk Management & Governance</h1>
+                <div class="title-divider"></div>
+                <p class="subtitle">Fra regulatorisk nødvendighed til strategisk konkurrencefordel</p>
+                <p class="sub-subtitle">Optimering af værdipapirbaserede investeringsprodukter</p>
+                <div class="presenter-info">
+                    Præsenteret af Jeppe [Efternavn] | 02.02.2026
                 </div>
             </div>
-            <div class="value-box">
-                <p>💰 <strong>Værdi:</strong> Øget konvertering til kurser/håndbøger (20% krydssalg), smartere købsoplevelse.</p>
-                <p>🎯 <strong>Mål:</strong> Hjælpe kunden med at navigere komplekse standarder uden konsulentbistand. AI som salgs-accelerator.</p>
-            </div>
-        </section>
-        
-        <div class="ai-info-box">
-            <h3>🤖 Hvordan AI'en beregner scoren</h3>
-            <p>AI-scoren sammenligner kundens svar på 8-12 spørgsmål mod Dansk Standards <strong>strukturerede vidensarkitektur</strong>. Dette er ikke gætteri – det er baseret på:</p>
-            <ul>
-                <li><strong>Vægtning:</strong> Hvert krav fra standarden vægtes efter risiko og branche.</li>
-                <li><strong>Audit-Data:</strong> Data fra tusindvis af tidligere *audits* og *konsulentrapporter* træner AI'en i at identificere kritiske huller.</li>
-                <li><strong>Mål:</strong> Resultatet er en datadrevet diagnose, der skaber *pull* til Niveau 4 (Roadmap).</li>
-            </ul>
         </div>
-        
-        <section id="level3" class="product-level score">
-            <h2>💯 Niveau 3: AI Compliance Maturity Score™</h2>
-            <p><strong>Hvad kunden får:</strong> Hurtig digital “diagnose” af organisationens compliance-modenhed. Udfyld nedenstående spørgsmål for at beregne jeres score.</p>
-            
-            <div class="demo-box interactive">
-                <p><strong>8 HURTIGE DIAGNOSE SPØRGSMÅL:</strong></p>
-                
-                <div class="question-group">
-                    <label>1. Har I en formelt godkendt sikkerhedspolitik?</label>
-                    <select id="q1">
-                        <option value="0">Vælg...</option>
-                        <option value="1">Nej (Ingen dokumentation)</option>
-                        <option value="2">Ja, men den er ikke opdateret (Lav)</option>
-                        <option value="4">Ja, den er opdateret årligt (Mellem)</option>
-                        <option value="6">Ja, den er fuldt integreret (Høj)</option>
-                    </select>
-                </div>
 
-                <div class="question-group">
-                    <label>2. Er der etableret en proces for risikovurdering?</label>
-                    <select id="q2">
-                        <option value="0">Vælg...</option>
-                        <option value="1">Nej</option>
-                        <option value="3">Ja, men uformel</option>
-                        <option value="5">Ja, formel og dokumenteret</option>
-                    </select>
-                </div>
-                
-                <div class="question-group">
-                    <label>3. Har I en plan for intern audit/revision?</label>
-                    <select id="q3">
-                        <option value="0">Vælg...</option>
-                        <option value="1">Nej, og det er ikke planlagt</option>
-                        <option value="2">Ja, men det er sjældent</option>
-                        <option value="5">Ja, det sker minimum årligt</option>
-                    </select>
-                </div>
-                
-                <div class="question-group">
-                    <label>4. Bliver medarbejdere trænet i relevante standarder/politikker?</label>
-                    <select id="q4">
-                        <option value="0">Vælg...</option>
-                        <option value="1">Nej</option>
-                        <option value="3">Kun ved onboarding</option>
-                        <option value="6">Årligt med dokumenteret effekt</option>
-                    </select>
-                </div>
+        <!-- Slide 2: Burning Platform -->
+        <div class="slide" data-slide="2">
+            <div class="slide-content">
+                <h2 class="section-header">Burning Platform – Hvorfor handle nu?</h2>
+                <div class="scrollable-content">
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Regulatorisk momentum</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Skærpet fokus på Value for Money, Product Governance (MiFID II) og ESG-transparens. Regulatorer forventer nu dokumenteret bevis for kundeværdi gennem hele produktets livscyklus, ikke blot ved lancering.</p>
+                        </div>
+                    </div>
 
-                <div class="question-group">
-                    <label>5. Har I dokumenterede procedurer for håndtering af afvigelser/hændelser?</label>
-                    <select id="q5">
-                        <option value="0">Vælg...</option>
-                        <option value="1">Nej</option>
-                        <option value="3">Ja, men ufuldstændige</option>
-                        <option value="5">Ja, fuldt dækkende</option>
-                    </select>
-                </div>
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Markedets kompleksitet</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Flere illikvide og alternative investeringer kræver dybere risk-analyse. Traditionelle risikomodeller er ikke tilstrækkelige for komplekse strukturerede produkter og alternative assets.</p>
+                        </div>
+                    </div>
 
-                <div class="question-group">
-                    <label>6. Måler I jeres performance (KPI'er) i forhold til standarden?</label>
-                    <select id="q6">
-                        <option value="0">Vælg...</option>
-                        <option value="1">Nej, slet ikke</option>
-                        <option value="3">Ja, men inkonsekvent</option>
-                        <option value="6">Ja, vi har faste KPI'er</option>
-                    </select>
-                </div>
-                
-                <button onclick="calculateScore()">Beregn Compliance Score</button>
-                <div id="scoreResult" class="result-display">
-                    Udfyld spørgsmålene og klik på knappen for at se jeres Compliance Maturity Score.
-                </div>
-            </div>
-            
-            <div class="value-box">
-                <p>🤝 <strong>Værdi:</strong> Kunden får målbare indsigt, og DS kan målrette opfølgende tilbud.</p>
-                <p>🎯 <strong>Mål:</strong> Skabe datadrevet forståelse og handlekraft (Gratis konsulentværdi).</p>
-            </div>
-        </section>
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Conduct Risk</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Mis-selling eller forkert prissætning kan føre til massive bøder og omdømmeskade. Vi har set bøder på op til €100M+ for produktgovernance-fejl i de senere år.</p>
+                        </div>
+                    </div>
 
-        <section id="level4" class="product-level roadmap">
-            <h2>🗺️ Niveau 4: AI Implementation Roadmap™</h2>
-            <p><strong>Hvad kunden får:</strong> Konkret 60–90 dages roadmap for implementering af mangler identificeret i Niveau 3.</p>
-            <div class="demo-box">
-                <p><strong>PLANLÆGNINGSEKSEMPEL:</strong></p>
-                <ul>
-                    <li><strong>Uge 1-3:</strong> Milepæl: *Strukturering af Governance*. Ejer: CISO. <strong>Indhold: Template til styringsdokumenter.</strong></li>
-                    <li><strong>Uge 4-6:</strong> Milepæl: *Indførelse af KPI-sporing*. Forslag: *Digital overvågning.*</li>
-                    <li><strong>Uge 7-9:</strong> Milepæl: *Intern Audit Træning*. Dette er et skridt væk fra engangssalg og hen mod <strong>løbende engagement</strong> og <strong>certificeringstræning</strong>.</li>
-                </ul>
-            </div>
-            <div class="value-box">
-                <p>💎 <strong>Værdi:</strong> Kunden kan selv eksekvere med klare guider, uden behov for fuld konsulentpakke.</p>
-                <p>🎯 <strong>Mål:</strong> Bygge tillid og engagement, samt klargøre kunder til Niveau 5 (Første Premium abonnement).</p>
-            </div>
-        </section>
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Operationel robusthed</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Systemlandskaber kæmper med komplekse produktstrukturer. Legacy-systemer kan ikke håndtere moderne produktkompleksitet, hvilket fører til manuelle processer og fejlrisiko.</p>
+                        </div>
+                    </div>
 
-        <section id="level5" class="product-level fullservice">
-            <h2>🌟 Niveau 5: Full Service – All-Inclusive Compliance Suite</h2>
-            <p><strong>Hvad kunden får:</strong> Hele pakken – Navigator™, Maturity Score™, Roadmap™, plus hands-on rådgivning og konsulentpakke.</p>
-            <div class="demo-box">
-                <p><strong>INKLUDERER:</strong></p>
-                <ul>
-                    <li>Adgang til DS-eksperter & Workshops.</li>
-                    <li>Onsite audit-forberedelse & Certificeringssupport.</li>
-                    <li>Langvarig KPI-tracking & support.</li>
-                </ul>
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Øget ledelsesansvar</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Produktgovernance er i stigende grad et direktions- og bestyrelsesanliggende. Personligt ansvar for senior management intensiveres gennem SMCR og lignende regimer.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <strong>Kernebudskab:</strong> Ledelsen står over for et paradoks: Man skal innovere hurtigere, men fejlmargenen er mindre end nogensinde. Svag produktgovernance er derfor ikke bare en compliance-risiko — det er en strategisk trussel mod forretningsmodellen.
+                    </div>
+                </div>
             </div>
-            <div class="value-box">
-                <p>👑 <strong>Værdi:</strong> Fuld “turnkey” løsning, hvor DS sikrer succesfuld implementering.</p>
-                <p>🎯 <strong>Mål:</strong> Maksimer kundeoplevelse, langvarige partnerskaber, højt kommercielt potentiale (Platform-økonomi).</p>
+        </div>
+
+        <!-- Slide 3: Gap Analysis -->
+        <div class="slide" data-slide="3">
+            <div class="slide-content">
+                <h2 class="section-header">Gabet mellem Teori og Praksis</h2>
+                <div class="scrollable-content">
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Silo-tænkning</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Risk og Compliance involveres for sent i produktudviklingsprocessen. Dette medfører kostbare redesigns og forsinkelser når risici identificeres sent i processen.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Dokumentationsfælden</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>"Check-the-box" mentalitet erstatter reel challenge. Fokus ligger på at udfylde formularer frem for at stille de rigtige kritiske spørgsmål om produktegnethed.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Uklart ejerskab</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>1st Line tror ofte, at 2nd Line "ejer" risikoen. Dette skaber en farlig antagelse om at produktrisiko primært er et compliance-anliggende frem for et forretningsansvar.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>PAC-flaskehalse</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Ineffektiv time-to-market grundet tungt bureaukrati. Alle produkter behandles ens, uanset risikoprofil, hvilket bremser simple launches og underressourcer komplekse.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Governance-teater</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Formelle møder uden reelle risikodiskussioner. Beslutninger er ofte allerede truffet før PAC-mødet, som blot bliver en formalitet.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <strong>Realiteten:</strong> Hos mange organisationer ser vi "governance på papiret". Man udfylder skemaerne, men de svære diskussioner om fx likviditet i stress eller kundemismatch tages ikke tidligt nok. Ejerskabet skal tydeligt tilbage i forretningen.
+                    </div>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+
+        <!-- Slide 4: Target Operating Model -->
+        <div class="slide" data-slide="4">
+            <div class="slide-content">
+                <h2 class="section-header">Målbillede – Det Optimale Setup</h2>
+                <div class="scrollable-content">
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Aktiv 1st Line</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Business ejer produkt og risikovurdering fra dag ét. Produktejere skal have kompetencer og incitamenter til at identificere og håndtere risici proaktivt, ikke reaktivt.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Empowered 2nd Line</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Risk & Compliance med reel challenge og eskalationsret. 2nd Line skal have mandat til at stoppe launches og eskalere til direktion ved materielle bekymringer.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Differentieret governance</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <ul>
+                                <li><strong>Fast-track:</strong> For standardprodukter med lav risiko – pre-approved frameworks og accelereret godkendelse</li>
+                                <li><strong>Deep-dive:</strong> For komplekse produkter med høj risiko – omfattende due diligence og senior-level review</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Risk-based approach</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Differentiering baseret på Product Risk Rating koblet til RAF. Klar rating-metodik (lav/medium/høj risiko) baseret på produktkompleksitet, target market, volumen og likviditet.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Data-drevet monitorering</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Løbende KRI-dashboards med real-time alerts. Automatiseret overvågning af nøgleindikatorer som limit breaches, klager, pricing outliers og performance gaps.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <strong>Vision:</strong> Governance skal ikke bremse forretningen, men give bedre "bremser", så man kan bevæge sig hurtigere og mere sikkert. Differentiering sikrer proportionalitet og bedre ressourceudnyttelse.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: ERM Matrix -->
+        <div class="slide" data-slide="5">
+            <div class="slide-content">
+                <h2 class="section-header">ERM-Matrix over Produktlivscyklussen</h2>
+                <div class="scrollable-content">
+                    <table class="mckinsey-table">
+                        <thead>
+                            <tr>
+                                <th>Fase</th>
+                                <th>Markeds- & Likviditetsrisiko</th>
+                                <th>Operationel & Modelrisiko</th>
+                                <th>Conduct & Compliance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Design</td>
+                                <td>Stresstest & scenarier</td>
+                                <td>System-readiness</td>
+                                <td>Target Market (MiFID)</td>
+                            </tr>
+                            <tr>
+                                <td>Approval</td>
+                                <td>Limit-fastsættelse</td>
+                                <td>Model-validering</td>
+                                <td>Fee-transparens</td>
+                            </tr>
+                            <tr>
+                                <td>Monitoring</td>
+                                <td>Daily breaches</td>
+                                <td>Fejlrapportering</td>
+                                <td>Klageovervågning</td>
+                            </tr>
+                            <tr>
+                                <td>Review</td>
+                                <td>Performance vs. benchmark</td>
+                                <td>Data-integritet</td>
+                                <td>Value for Money</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="insight-box">
+                        <strong>Formål:</strong> Ikke flere kontroller, men at sikre at de rigtige risikospørgsmål stilles på det rigtige tidspunkt i produktets livscyklus — og dokumenteres på ledelsesniveau. ERM-tilgangen gør risikostyringen systematisk og fremadskuende.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Governance Structure -->
+        <div class="slide" data-slide="6">
+            <div class="slide-content">
+                <h2 class="section-header">Governance-struktur & Eskalation</h2>
+                <div class="scrollable-content">
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>PAC som beslutningsforum</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Tværfagligt Product Approval Committee med repræsentation fra Sales, Risk, Legal, Operations og Distribution. Klar balance mellem hastighed og grundighed.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Mandater og rettigheder</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Klare beslutningsrettigheder baseret på Product Risk Rating. Definition af hvem der kan godkende hvad, samt hvornår eskalering til højere niveau er påkrævet.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>CRO vetoret</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Chief Risk Officer med vetoret eller direkte eskalationsret til direktion ved materielle risici. Sikrer at commercial pressure ikke overskygger risikohensyn.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Post-Implementation Review</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>PIR efter 6–12 måneder som fast læringsmekanisme. Systematisk evaluering af om produktet præsterer som forventet og lever op til kundeværdi-målsætninger.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>RAF-integration</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Produktrisici skal være integreret i Risk Appetite Framework med klare limits og triggers. Produktlancering må ikke bringe institutionen uden for risk appetite.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Bestyrelsesrapportering</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Periodisk rapportering til bestyrelsen på væsentlige produktrisici, launches og PIR-resultater. Bestyrelsen skal have visibility på produktportfoljen og governance-effektivitet.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <strong>Klarhed er nøglen:</strong> Strukturen skal sikre: Hvem kan acceptere hvilke risici? Hvornår skal direktion eller bestyrelse involveres? PIR er afgørende for at lukke læringsloopet og sikre reel ansvarlighed.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Recommendations -->
+        <div class="slide" data-slide="7">
+            <div class="slide-content">
+                <h2 class="section-header">Strategiske Anbefalinger og Prioritering</h2>
+                <div class="scrollable-content">
+                    <div class="priority-grid">
+                        <div class="priority-card immediate">
+                            <h3>Immediate (0–3 mdr.)</h3>
+                            <ul>
+                                <li>Revidér PAC-mandat og definér Product Risk Appetite</li>
+                            </ul>
+                        </div>
+
+                        <div class="priority-card short-term">
+                            <h3>Short-term (3–6 mdr.)</h3>
+                            <ul>
+                                <li>Implementér differentieret godkendelsesproces (Fast-track / Deep-dive)</li>
+                            </ul>
+                        </div>
+
+                        <div class="priority-card medium-term">
+                            <h3>Medium-term (6–12 mdr.)</h3>
+                            <ul>
+                                <li>Automatisér KRI-rapportering og integrér i ledelses-MI</li>
+                            </ul>
+                        </div>
+
+                        <div class="priority-card culture">
+                            <h3>Kultur & Kompetencer</h3>
+                            <ul>
+                                <li>Træning af 1st Line i praktisk risikovurdering</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="insight-box">
+                        <strong>Første skridt:</strong> Hvis jeg kun måtte starte ét sted, ville det være at tydeliggøre Product Risk Appetite og mandatet i PAC. Uden klar risikovillighed og beslutningskraft bliver resten kun procesforbedringer.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Conclusion -->
+        <div class="slide" data-slide="8">
+            <div class="slide-content">
+                <h2 class="section-header">Afrunding og Næste Skridt</h2>
+                <div class="scrollable-content">
+                    <div class="expandable-item expanded">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Stærk governance muliggør ansvarlig innovation</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Med den rette struktur kan organisationen innovere hurtigere og mere sikkert. Governance bliver en enabler, ikke en barriere.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item expanded">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>ERM-baseret produktstyring reducerer risici</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Både finansielle og ikke-finansielle risici håndteres systematisk gennem hele produktlivscyklussen. Færre ubehagelige overraskelser, bedre kundeoutcomes.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item expanded">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Bedre beslutningsgrundlag for ledelsen</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Data-drevet indsigt i produktporteføljens risikoprofil giver ledelsen mulighed for at træffe informerede strategiske beslutninger.</p>
+                        </div>
+                    </div>
+
+                    <div class="expandable-item expanded">
+                        <div class="expandable-header" onclick="toggleExpand(this)">
+                            <span class="expandable-title">
+                                <strong>Næste skridt</strong>
+                            </span>
+                            <span class="expand-icon">›</span>
+                        </div>
+                        <div class="expandable-content">
+                            <p>Modenhedsvurdering af nuværende setup og prioriteret implementeringsplan. Gap-analyse mod best practice og roadmap for transformation.</p>
+                        </div>
+                    </div>
+
+                    <div class="insight-box" style="margin-top: 3rem;">
+                        <strong>Hovedpointe:</strong> Governance skal ikke ses som en begrænsning, men som en forudsætning for at vokse sikkert. Med den rette struktur kan virksomheden både styrke kundebeskyttelsen og øge sin strategiske handlefrihed.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Speaker Notes Panel -->
+        <div class="notes-panel" id="notes-panel">
+            <h4>Speaker Notes</h4>
+            <p id="notes-content"></p>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-btn" id="prev-btn" onclick="previousSlide()">← Forrige</button>
+            <button class="notes-toggle" id="notes-toggle" onclick="toggleNotes()">Talerpunkter</button>
+            <button class="nav-btn primary" id="next-btn" onclick="nextSlide()">Næste →</button>
+        </nav>
+    </div>
 
     <script>
-        // VISUEL TRANSITION: Starter på Niveau 0
-        document.addEventListener('DOMContentLoaded', () => {
-            // Skjuler alle Niveauer og AI Info Boks ved start
-            document.querySelectorAll('.product-level').forEach(level => {
-                if (level.id !== 'level0') {
-                    level.style.display = 'none';
-                }
+        const speakerNotes = {
+            1: "Tak fordi jeg må komme. Mit fokus i dag er ikke blot at opfylde regulatoriske krav, men at vise, hvordan en stærk governance-struktur kan blive en konkurrencefordel — ved at gøre det muligt at innovere ansvarligt og skalere forretningen med kontrolleret risiko.",
+            2: "Ledelsen står over for et paradoks: Man skal innovere hurtigere, men fejlmargenen er mindre end nogensinde. Svag produktgovernance er derfor ikke bare en compliance-risiko — det er en strategisk trussel mod forretningsmodellen.",
+            3: "Hos mange organisationer ser vi 'governance på papiret'. Man udfylder skemaerne, men de svære diskussioner om fx likviditet i stress eller kundemismatch tages ikke tidligt nok. Ejerskabet skal tydeligt tilbage i forretningen.",
+            4: "Målet er balance. Governance skal ikke bremse forretningen, men give bedre 'bremser', så man kan bevæge sig hurtigere og mere sikkert. Differentiering sikrer proportionalitet og bedre ressourceudnyttelse.",
+            5: "Formålet er ikke flere kontroller, men at sikre at de rigtige risikospørgsmål stilles på det rigtige tidspunkt i produktets livscyklus — og dokumenteres på ledelsesniveau. ERM-tilgangen gør risikostyringen systematisk og fremadskuende.",
+            6: "Strukturen skal sikre klarhed: Hvem kan acceptere hvilke risici? Hvornår skal direktion eller bestyrelse involveres? PIR er afgørende for at lukke læringsloopet og sikre reel ansvarlighed.",
+            7: "Hvis jeg kun måtte starte ét sted, ville det være at tydeliggøre Product Risk Appetite og mandatet i PAC. Uden klar risikovillighed og beslutningskraft bliver resten kun procesforbedringer.",
+            8: "Pointen er, at governance ikke skal ses som en begrænsning, men som en forudsætning for at vokse sikkert. Med den rette struktur kan virksomheden både styrke kundebeskyttelsen og øge sin strategiske handlefrihed."
+        };
+
+        let currentSlide = 1;
+        const totalSlides = 8;
+
+        // Initialize slide indicators
+        function initSlideIndicators() {
+            const indicator = document.getElementById('slide-indicator');
+            for (let i = 1; i <= totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'slide-dot' + (i === 1 ? ' active' : '');
+                dot.onclick = () => goToSlide(i);
+                indicator.appendChild(dot);
+            }
+        }
+
+        function updateSlide() {
+            // Update slides
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
             });
-            document.querySelector('.ai-info-box').style.display = 'none';
+            document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+
+            // Update indicators
+            document.querySelectorAll('.slide-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentSlide);
+            });
+
+            // Update notes
+            document.getElementById('notes-content').textContent = speakerNotes[currentSlide];
+
+            // Update buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 1;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function goToSlide(slideNum) {
+            currentSlide = slideNum;
+            updateSlide();
+        }
+
+        function toggleNotes() {
+            const panel = document.getElementById('notes-panel');
+            const toggle = document.getElementById('notes-toggle');
+            panel.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+
+        function toggleExpand(header) {
+            const item = header.parentElement;
+            const wasExpanded = item.classList.contains('expanded');
+            
+            // Close all items on the same slide
+            const slide = item.closest('.slide');
+            slide.querySelectorAll('.expandable-item').forEach(el => {
+                el.classList.remove('expanded');
+            });
+            
+            // Toggle current item
+            if (!wasExpanded) {
+                item.classList.add('expanded');
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'n' || e.key === 'N') {
+                e.preventDefault();
+                toggleNotes();
+            }
         });
 
-        // FUNKTION FOR NIVEAU 0 TIL NIVEAU 1/2/3
-        function goToLevel1() {
-            const industry = document.getElementById('industry-select').value;
-            if (industry) {
-                document.getElementById('level0').style.display = 'none';
-                
-                // VIS NIVEAUERNE 1, 2 OG 3 + AI Info Box
-                document.getElementById('level1').style.display = 'block';
-                document.getElementById('level2').style.display = 'block';
-                document.getElementById('level3').style.display = 'block';
-                document.querySelector('.ai-info-box').style.display = 'block';
-
-                // Skjul Niveau 4 og 5 indtil Maturity Score er klikket
-                document.getElementById('level4').style.display = 'none';
-                document.getElementById('level5').style.display = 'none';
-                
-                document.getElementById('level1').scrollIntoView({ behavior: 'smooth' });
-            } else {
-                alert('Vælg venligst en branche for at finde relevante standarder.');
-            }
-        }
-
-        // FUNKTION FOR NIVEAU 3 TIL ROADMAP (BEREGNER OG VISER RESTEN AF TRAPPEN)
-        function calculateScore() {
-            // 1. INDSAMLING AF SVAR OG BEREGNING AF BASE SCORE
-            const q1 = parseInt(document.getElementById('q1').value); // Sikkerhedspolitik (Vægt: Høj)
-            const q2 = parseInt(document.getElementById('q2').value); // Risikovurdering (Vægt: Høj)
-            const q3 = parseInt(document.getElementById('q3').value); // Intern Audit (Vægt: Mellem)
-            const q4 = parseInt(document.getElementById('q4').value); // Træning (Vægt: Lav)
-            const q5 = parseInt(document.getElementById('q5').value); // Hændelseshåndtering (Vægt: Mellem)
-            const q6 = parseInt(document.getElementById('q6').value); // KPI'er (Vægt: Mellem)
-            
-            // Tjekker om alle relevante spørgsmål er besvaret (de 6 primære)
-            if ([q1, q2, q3, q4, q5, q6].includes(0)) {
-                document.getElementById('scoreResult').innerHTML = "🛑 Udfyld venligst alle spørgsmålene for at beregne en retvisende score.";
-                return;
-            }
-
-            // Simuleret Maksimal score baseret på vægte (6+5+5+6+5+6 = 33)
-            const maxScorePoints = 33; 
-            
-            // Beregn den samlede score baseret på vægtede svar
-            const totalPoints = q1 + q2 + q3 + q4 + q5 + q6;
-            
-            // Konverter til en 0-100 score (og tilføj en lille tilfældig variation for realisme)
-            let finalScore = Math.floor((totalPoints / maxScorePoints) * 100);
-            
-            // Sikrer at scoren er realistisk og ligger mellem 40-90 (ingen starter på 0 eller 100)
-            if (finalScore < 40) finalScore += 5; 
-            if (finalScore > 90) finalScore -= 5;
-            
-            // 2. GENERERING AF GAP-ANALYSE BASERET PÅ LAVESTE SCOREDE HULLER
-            let gapAnalysis = '';
-            let quickWin = '';
-            
-            // Tjekker de mest kritiske huller (laveste score på q1/q2)
-            if (q1 < 4 || q2 < 3) {
-                gapAnalysis = 'Kritisk: Hovedsagelig i dokumentation af <strong>risikohåndtering</strong> og <strong>sikkerhedspolitik</strong>. Stort Gap.';
-                quickWin = 'Hurtig gevinst: Sørg for formel godkendelse af grundlæggende adgangspolitikker.';
-            } else if (q3 < 4 || q6 < 4) {
-                gapAnalysis = 'Kritisk: Manglende intern <strong>audit</strong> og <strong>KPI-sporing</strong> (Typisk Gap før certificering).';
-                quickWin = 'Hurtig gevinst: Standardiser intern rapportering og træning (Niveau 4 Roadmap start).';
-            } else {
-                gapAnalysis = 'Få huller: Fokus på kontinuitet, modstandsdygtighed og leverandørstyring (Niveau 5 service).';
-                quickWin = 'Hurtig gevinst: Forberedelse til certificering og vedligeholdelse.';
-            }
-
-            const resultHTML = `
-                <h3>Compliance Maturity Score: <span style="font-size: 2em; color: #9933ff;">${finalScore}/100</span></h3>
-                <p><strong>Kritiske mangler:</strong> ${gapAnalysis}</p>
-                <p style="color: #33cc33;">**Næste Skridt (Quick Win):** ${quickWin}</p>
-                <p style="font-weight: normal;">*Denne score trækker jer direkte ind i **Niveau 4 Implementation Roadmap**.*</p>
-            `;
-
-            document.getElementById('scoreResult').innerHTML = resultHTML;
-            
-            // VISUELT PULL: Vis Niveau 4 og 5, og få Niveau 4 til at blinke
-            document.getElementById('level4').style.display = 'block';
-            document.getElementById('level5').style.display = 'block';
-            
-            const level4 = document.getElementById('level4');
-            level4.style.backgroundColor = '#ccffcc';
-            setTimeout(() => {
-                level4.style.backgroundColor = '#e6ffe6';
-            }, 800);
-            
-            // Scroll ned til resultatet
-            document.getElementById('scoreResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        // Initialize
+        initSlideIndicators();
+        updateSlide();
     </script>
 </body>
 </html>
