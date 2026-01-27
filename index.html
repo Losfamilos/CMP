@@ -681,38 +681,41 @@
   .glossary-panel {
     top: 110px !important;
   }
-         @media (max-width: 600px) {
-  :root{
-    --mobile-bottom-nav-h: 64px;
-  }
-
+        @media (max-width: 600px) {
+  /* 1) Bundbaren: én linje */
   .bottom-nav{
-    height: var(--mobile-bottom-nav-h) !important;
-    padding: 0.5rem 0.6rem !important;
-    gap: 0.4rem !important;
+    height: 58px !important;
+    padding: 0.4rem 0.5rem !important;
+    gap: 0.35rem !important;
 
-    flex-wrap: nowrap !important;     /* ✅ vigtig: ingen wrap */
+    display: flex !important;
+    flex-wrap: nowrap !important;          /* ✅ ingen wrap */
     justify-content: space-between !important;
     align-items: center !important;
   }
 
+  /* 2) Gør knapper mindre */
   .bottom-nav .nav-btn,
   .bottom-nav .notes-toggle{
-    padding: 0.55rem 0.7rem !important;
-    font-size: 0.80rem !important;
+    padding: 0.45rem 0.55rem !important;
+    font-size: 0.76rem !important;
     line-height: 1 !important;
-    white-space: nowrap !important;   /* ✅ undgå knappen bliver “2 linjer” */
+    white-space: nowrap !important;        /* ✅ aldrig 2 linjer */
   }
 
-  /* ✅ fjern de store min-widths der skubber næste ud */
+  /* 3) Tillad at de kan blive smallere (så “Næste” ikke ryger ud) */
   .bottom-nav #prev-btn,
-  .bottom-nav #next-btn,
+  .bottom-nav #notes-toggle,
+  .bottom-nav #next-btn{
+    flex: 1 1 0 !important;                /* ✅ del pladsen ligeligt */
+    min-width: 0 !important;               /* ✅ vigtig i flex */
+  }
+
+  /* 4) Bonus: gør “Talerpunkter” lidt smallere end de andre */
   .bottom-nav #notes-toggle{
-    min-width: 0 !important;
-    flex: 1 1 0 !important;
+    flex: 1.2 1 0 !important;
   }
 }
-
 }
     </style>
 </head>
@@ -1421,6 +1424,7 @@
      </div>
 </body>
 </html>
+
 
 
 
