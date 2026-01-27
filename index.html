@@ -70,11 +70,38 @@
             align-items: center;
             justify-content: center;
             flex: 0 0 auto;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
-        .nav-logo-center svg {
-            filter: drop-shadow(0 1px 2px rgba(0, 40, 85, 0.1));
+        /* NEW: JP Morgan-ish wordmark logo */
+        .brand-logo {
+            font-family: 'Spectral', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--mckinsey-navy);
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 6px;
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .brand-logo span {
+            font-weight: 400;
+            letter-spacing: 1.1px;
+        }
+
+        .brand-logo::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 62%;
+            height: 2px;
+            background: var(--mckinsey-navy);
+            opacity: 0.72;
         }
 
         .nav-controls {
@@ -569,35 +596,12 @@
         <!-- Top Navigation -->
         <nav class="top-nav">
             <div class="nav-logo">RISK MANAGEMENT & GOVERNANCE</div>
+
+            <!-- CHANGED: centered logo (JP Morgan-ish wordmark) -->
             <div class="nav-logo-center">
-                <svg width="120" height="50" viewBox="0 0 200 85" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Mountain peak design -->
-                    <path d="M 30 55 L 75 15 L 100 45 L 130 10 L 170 50" 
-                          stroke="#002855" 
-                          stroke-width="3" 
-                          fill="none" 
-                          stroke-linecap="round" 
-                          stroke-linejoin="round"/>
-                    <!-- Company name -->
-                    <text x="100" y="72" 
-                          font-family="'Spectral', serif" 
-                          font-size="16" 
-                          font-weight="400" 
-                          fill="#002855" 
-                          text-anchor="middle" 
-                          letter-spacing="3">LYNTON</text>
-                    <text x="100" y="82" 
-                          font-family="'Spectral', serif" 
-                          font-size="10" 
-                          font-weight="300" 
-                          fill="#002855" 
-                          text-anchor="middle" 
-                          letter-spacing="1">& Co.</text>
-                    <!-- Underline bars -->
-                    <line x1="40" y1="84" x2="160" y2="84" stroke="#002855" stroke-width="2"/>
-                    <line x1="40" y1="87" x2="160" y2="87" stroke="#002855" stroke-width="1.5"/>
-                </svg>
+                <div class="brand-logo">Lynton <span>& Co.</span></div>
             </div>
+
             <div class="nav-controls">
                 <div class="slide-indicator" id="slide-indicator"></div>
             </div>
@@ -1159,13 +1163,13 @@
         function toggleExpand(header) {
             const item = header.parentElement;
             const wasExpanded = item.classList.contains('expanded');
-            
+
             // Close all items on the same slide
             const slide = item.closest('.slide');
             slide.querySelectorAll('.expandable-item').forEach(el => {
                 el.classList.remove('expanded');
             });
-            
+
             // Toggle current item
             if (!wasExpanded) {
                 item.classList.add('expanded');
@@ -1192,4 +1196,3 @@
     </script>
 </body>
 </html>
-
