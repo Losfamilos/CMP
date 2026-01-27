@@ -706,7 +706,21 @@
     line-height: 1 !important;
     white-space: nowrap !important;
   }
+@media (max-width: 600px){
+
+  /* 1) Sørg for at slide-indhold ikke ligger bag bundbaren */
+  .slide{
+    bottom: 58px !important;   /* sæt til samme højde som din mobile bottom-nav */
+  }
+
+  /* 2) Træk “Præsenteret af …” op (den har margin-top: 4rem på desktop) */
+  .presenter-info{
+    margin-top: 1.2rem !important;
+    font-size: 0.78rem !important;
+  }
+
 }
+
 }
     </style>
 </head>
@@ -1415,6 +1429,7 @@
      </div>
 </body>
 </html>
+
 
 
 
