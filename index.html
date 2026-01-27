@@ -647,6 +647,7 @@
 }
 
 /* ================= MOBILE ================= */
+/* ================= MOBILE ================= */
 @media (max-width: 600px) {
 
   /* ===== TOP NAV ===== */
@@ -677,10 +678,10 @@
     width: 100% !important;
   }
 
-  /* Slides starter lavere pga højere topbar */
+  /* Slides starter lavere pga højere topbar og slutter over bundbar */
   .slide {
     top: 110px !important;
-    bottom: 58px !important; /* plads til bundbar */
+    bottom: 58px !important;
     padding: 2rem 1.2rem !important;
   }
 
@@ -739,7 +740,30 @@
     pointer-events: auto !important;
     transform: translateY(0) !important;
   }
+
+  /* ===== ERM TABLE FIX (kun mobil) ===== */
+
+  /* Gør tabellen horisontalt scroll-bar */
+  .scrollable-content table {
+    display: block !important;
+    width: 100% !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Sørg for at kolonner ikke presses sammen */
+  .mckinsey-table {
+    min-width: 900px !important;
+  }
+
+  /* Lidt mere kompakt tabel */
+  .mckinsey-table th,
+  .mckinsey-table td {
+    padding: 0.7rem !important;
+    font-size: 0.78rem !important;
+  }
 }
+
 
     </style>
 </head>
@@ -1448,6 +1472,7 @@
      </div>
 </body>
 </html>
+
 
 
 
