@@ -515,12 +515,136 @@
         .scrollable-content::-webkit-scrollbar-track { background: var(--light-gray); }
         .scrollable-content::-webkit-scrollbar-thumb { background: var(--mckinsey-blue); border-radius: 3px; }
 
+        /* === Ordliste (Glossary) Toggle + Panel === */
+        .glossary-toggle {
+            position: fixed;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1001;
+            background: white;
+            border: 1px solid var(--border-gray);
+            color: var(--charcoal);
+            padding: 0.7rem 1.2rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .glossary-toggle:hover {
+            border-color: var(--mckinsey-navy);
+            background: var(--light-gray);
+        }
+
+        .glossary-toggle.active {
+            background: var(--mckinsey-navy);
+            color: white;
+            border-color: var(--mckinsey-navy);
+        }
+
+        .glossary-toggle:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .glossary-panel {
+            position: fixed;
+            top: 60px;
+            bottom: 70px;
+            right: 0;
+            width: min(460px, 92vw);
+            background: white;
+            border-left: 1px solid var(--border-gray);
+            transform: translateX(100%);
+            transition: transform 0.35s ease;
+            z-index: 1000;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .glossary-panel.active {
+            transform: translateX(0);
+        }
+
+        .glossary-panel-header {
+            background: var(--mckinsey-navy);
+            color: white;
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .glossary-panel-header h4 {
+            font-family: 'Spectral', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .glossary-close {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.35);
+            color: white;
+            padding: 0.35rem 0.65rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .glossary-close:hover {
+            border-color: rgba(255,255,255,0.7);
+            transform: translateY(-1px);
+        }
+
+        .glossary-panel-body {
+            padding: 1.2rem 1.4rem 1.6rem;
+            overflow-y: auto;
+        }
+
+        .glossary-panel-body::-webkit-scrollbar { width: 6px; }
+        .glossary-panel-body::-webkit-scrollbar-track { background: var(--light-gray); }
+        .glossary-panel-body::-webkit-scrollbar-thumb { background: var(--mckinsey-blue); border-radius: 3px; }
+
+        .glossary-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .glossary-term {
+            color: var(--mckinsey-navy);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.2px;
+            margin-bottom: 0.35rem;
+        }
+
+        .glossary-def {
+            color: var(--charcoal);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
         @media (max-width: 1200px) {
             .main-title { font-size: 2.8rem; }
             .section-header { font-size: 1.8rem; }
             .slide { padding: 3rem 4rem; }
             .top-nav, .bottom-nav { padding: 0 2rem; }
             .priority-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 900px) {
+            .glossary-toggle { right: 10px; }
+            .glossary-panel { width: min(420px, 94vw); }
         }
     </style>
 </head>
@@ -552,7 +676,7 @@
             </div>
         </div>
 
-        <!-- Slide 2: Burning Platform (UPDATED for 2026) -->
+        <!-- Slide 2: Burning Platform -->
         <div class="slide" data-slide="2">
             <div class="slide-content">
                 <h2 class="section-header">Burning Platform – Hvorfor handle nu?</h2>
@@ -754,7 +878,7 @@
             </div>
         </div>
 
-        <!-- Slide 5: ERM Matrix (UPDATED taxonomy) -->
+        <!-- Slide 5: ERM Matrix -->
         <div class="slide" data-slide="5">
             <div class="slide-content">
                 <h2 class="section-header">ERM-taksonomi × Produktlivscyklus (inkl. non-financial risks)</h2>
@@ -876,8 +1000,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Slide 7: Recommendations -->
+   <!-- Slide 7: Recommendations -->
         <div class="slide" data-slide="7">
             <div class="slide-content">
                 <h2 class="section-header">Strategiske Anbefalinger og Prioritering</h2>
@@ -982,6 +1105,16 @@
                 </div>
             </div>
         </div>
+        <!-- Ordliste -->
+        <button class="glossary-toggle" id="glossary-toggle" onclick="toggleGlossary()">Ordliste</button>
+
+        <div class="glossary-panel" id="glossary-panel" aria-hidden="true">
+            <div class="glossary-panel-header">
+                <h4>Ordliste</h4>
+                <button class="glossary-close" onclick="closeGlossary()">✕</button>
+            </div>
+            <div class="glossary-panel-body" id="glossary-body"></div>
+        </div>
 
         <!-- Speaker Notes Panel -->
         <div class="notes-panel" id="notes-panel">
@@ -995,113 +1128,228 @@
             <button class="notes-toggle" id="notes-toggle" onclick="toggleNotes()">Talerpunkter</button>
             <button class="nav-btn primary" id="next-btn" onclick="nextSlide()">Næste →</button>
         </nav>
-    </div>
 
-    <script>
-        const speakerNotes = {
-            1: "Tak fordi jeg må komme. Mit fokus i dag er ikke blot at opfylde regulatoriske krav, men at vise, hvordan en stærk governance-struktur kan blive en konkurrencefordel — ved at gøre det muligt at innovere ansvarligt og skalere forretningen med kontrolleret risiko.",
-            2: "Ledelsen står over for et paradoks: Man skal innovere hurtigere, men fejlmargenen er mindre end nogensinde. Svag produktgovernance er derfor ikke bare en compliance-risiko — det er en strategisk trussel mod forretningsmodellen.",
-            3: "Hos mange organisationer ser vi 'governance på papiret'. Man udfylder skemaerne, men de svære diskussioner om fx likviditet i stress eller kundemismatch tages ikke tidligt nok. Ejerskabet skal tydeligt tilbage i forretningen.",
-            4: "Målet er balance. Governance skal ikke bremse forretningen, men give bedre 'bremser', så man kan bevæge sig hurtigere og mere sikkert. Differentiering sikrer proportionalitet og bedre ressourceudnyttelse.",
-            5: "Formålet er ikke flere kontroller, men at sikre at de rigtige risikospørgsmål stilles på det rigtige tidspunkt i produktets livscyklus — og dokumenteres på ledelsesniveau. ERM-tilgangen gør risikostyringen systematisk og fremadskuende.",
-            6: "Strukturen skal sikre klarhed: Hvem kan acceptere hvilke risici? Hvornår skal direktion eller bestyrelse involveres? PIR er afgørende for at lukke læringsloopet og sikre reel ansvarlighed.",
-            7: "Hvis jeg kun måtte starte ét sted, ville det være at tydeliggøre Product Risk Appetite og mandatet i PAC. Uden klar risikovillighed og beslutningskraft bliver resten kun procesforbedringer.",
-            8: "Pointen er, at governance ikke skal ses som en begrænsning, men som en forudsætning for at vokse sikkert. Med den rette struktur kan virksomheden både styrke kundebeskyttelsen og øge sin strategiske handlefrihed."
-        };
+    
+        <script>
+            const speakerNotes = {
+                1: "Tak fordi jeg må komme. Mit fokus i dag er ikke blot at opfylde regulatoriske krav, men at vise, hvordan en stærk governance-struktur kan blive en konkurrencefordel — ved at gøre det muligt at innovere ansvarligt og skalere forretningen med kontrolleret risiko.",
+                2: "Ledelsen står over for et paradoks: Man skal innovere hurtigere, men fejlmargenen er mindre end nogensinde. Svag produktgovernance er derfor ikke bare en compliance-risiko — det er en strategisk trussel mod forretningsmodellen.",
+                3: "Hos mange organisationer ser vi 'governance på papiret'. Man udfylder skemaerne, men de svære diskussioner om fx likviditet i stress eller kundemismatch tages ikke tidligt nok. Ejerskabet skal tydeligt tilbage i forretningen.",
+                4: "Målet er balance. Governance skal ikke bremse forretningen, men give bedre 'bremser', så man kan bevæge sig hurtigere og mere sikkert. Differentiering sikrer proportionalitet og bedre ressourceudnyttelse.",
+                5: "Formålet er ikke flere kontroller, men at sikre at de rigtige risikospørgsmål stilles på det rigtige tidspunkt i produktets livscyklus — og dokumenteres på ledelsesniveau. ERM-tilgangen gør risikostyringen systematisk og fremadskuende.",
+                6: "Strukturen skal sikre klarhed: Hvem kan acceptere hvilke risici? Hvornår skal direktion eller bestyrelse involveres? PIR er afgørende for at lukke læringsloopet og sikre reel ansvarlighed.",
+                7: "Hvis jeg kun måtte starte ét sted, ville det være at tydeliggøre Product Risk Appetite og mandatet i PAC. Uden klar risikovillighed og beslutningskraft bliver resten kun procesforbedringer.",
+                8: "Pointen er, at governance ikke skal ses som en begrænsning, men som en forudsætning for at vokse sikkert. Med den rette struktur kan virksomheden både styrke kundebeskyttelsen og øge sin strategiske handlefrihed."
+            };
 
-        let currentSlide = 1;
-        const totalSlides = 8;
+            const glossary = {
+                1: [],
+                2: [
+                    { term: "VFM (Value for Money)", def: "Myndighedernes krav om, at omkostninger skal afspejle den reelle værdi og det afkast, kunden modtager." },
+                    { term: "RIS (Retail Investment Strategy)", def: "En EU-lovpakke, der skal sikre, at private investorer får gennemsigtige produkter og uvildig rådgivning." },
+                    { term: "Peer Benchmarking", def: "Lovpligtig sammenligning af egne produktpriser mod markedets gennemsnit for at retfærdiggøre gebyrer." },
+                    { term: "DORA (Digital Operational Resilience Act)", def: "EU-forordning, der kræver, at finansielle virksomheder kan modstå og rapportere cyberangreb og it-nedbrud." },
+                    { term: "MiFID II/MiFIR Review", def: "Opdaterede regler for handel med værdipapirer, der kræver total gennemsigtighed i pris og udførelse af ordrer." },
+                    { term: "Conduct Risk", def: "Risikoen for, at medarbejdernes eller virksomhedens adfærd fører til dårlige resultater for kunden eller tab af markedsintegritet." },
+                    { term: "SFDR (Sustainable Finance Disclosure Regulation)", def: "Krav om at oplyse præcis, hvor bæredygtigt et produkt er (artikel 8 eller 9) for at undgå greenwashing." }
+                ],
+                3: [
+                    { term: "Silo-tænkning", def: "Manglende samarbejde mellem afdelinger (f.eks. Business vs. Compliance), som fører til fejl og forsinkelser." },
+                    { term: "Compliance Retrofit", def: "Den dyre fejl at forsøge at tilpasse et færdigt produkt til reglerne frem for at bygge det rigtigt fra start." },
+                    { term: "1st Line (First Line of Defense)", def: "Forretningsenheden, der udvikler produkter og har det daglige ansvar for at styre risici." },
+                    { term: "2nd Line (Second Line of Defense)", def: "De uafhængige kontrolfunktioner (Risk & Compliance), der overvåger og udfordrer 1st Line." },
+                    { term: "Governance-teater", def: "Når beslutningsprocesser bliver en formalitet uden reel kritisk vurdering af risici." },
+                    { term: "PAC-flaskehalse", def: "Ineffektive godkendelsesudvalg, hvor alle sager – store som små – tager lige lang tid." }
+                ],
+                4: [
+                    { term: "Risk-by-design", def: "En strategi, hvor risikostyring og kundebeskyttelse integreres direkte i produktudviklingens tidlige faser." },
+                    { term: "Fast-track", def: "En accelereret proces for standardiserede lavrisiko-produkter, der reducerer time-to-market." },
+                    { term: "RAF (Risk Appetite Framework)", def: "Ledelsens fastlæggelse af, hvor meget og hvilken type risiko virksomheden er villig til at acceptere." },
+                    { term: "KRI (Key Risk Indicators)", def: "Tidlige advarselssignaler (f.eks. fejl i prisfastsættelse), der viser, hvis en risiko er ved at løbe løbsk." },
+                    { term: "Proportionalitet", def: "Princippet om, at kontrolindsatsen skal matche risikoens størrelse (undgå over-compliance på simple ting)." }
+                ],
+                5: [
+                    { term: "ERM (Enterprise Risk Management)", def: "En samlet ramme for at styre alle typer risici (finansielle og operationelle) på tværs af hele huset." },
+                    { term: "Liquidity Gating Triggers", def: "Automatiske stopklodser, der aktiveres, hvis for mange kunder trækker penge ud på én gang, for at beskytte fonden." },
+                    { term: "Model Governance", def: "Kontrol med de matematiske modeller, der beregner priser og risici, så man undgår beregningsfejl." },
+                    { term: "Data Lineage", def: "\"Stamtavlen\" over data – præcis dokumentation af, hvor data kommer fra, og hvordan de behandles i systemerne." },
+                    { term: "Stress Testing (Reverse Stress Test)", def: "Analyse af, præcis hvilke ekstreme markedsforhold der skal til, for at et produkt kollapser." },
+                    { term: "ICT Third-Party Risk", def: "Risikoen knyttet til leverandører af it-platforme, cloud-løsninger og datatjenester." }
+                ],
+                6: [
+                    { term: "PAC (Product Approval Committee)", def: "Det øverste udvalg, der godkender produktlanceringer og sikrer tværfaglig kontrol." },
+                    { term: "Audit Trail", def: "En ubrudt kæde af dokumentation, der beviser over for myndighederne, hvem der har godkendt hvad og på hvilket grundlag." },
+                    { term: "CRO-vetoret", def: "Retten for Chief Risk Officer til at stoppe et produkt, hvis risiciene vurderes at være for store for virksomheden." },
+                    { term: "PIR (Post-Implementation Review)", def: "En obligatorisk evaluering efter 6-12 måneder for at tjekke, om produktet leverer det, man lovede kunden." },
+                    { term: "Material Change", def: "En væsentlig ændring i et produkt (f.eks. ny pris eller risikoprofil), der kræver en helt ny godkendelse." }
+                ],
+                7: [
+                    { term: "VFM Baseline", def: "Det faste prispunkt, som alle produkter måles op imod for at sikre, at de ikke er for dyre for kunden." },
+                    { term: "Standardiseret PRA (Product Risk Assessment)", def: "En ensartet metode til at vurdere risikoen ved alle nye produkter." },
+                    { term: "Tone-from-the-top", def: "Ledelsens vigtige signalering om, at compliance og risikostyring prioriteres over kortsigtet profit." }
+                ],
+                8: []
+            };
 
-        // Initialize slide indicators
-        function initSlideIndicators() {
-            const indicator = document.getElementById('slide-indicator');
-            for (let i = 1; i <= totalSlides; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'slide-dot' + (i === 1 ? ' active' : '');
-                dot.onclick = () => goToSlide(i);
-                indicator.appendChild(dot);
+            let currentSlide = 1;
+            const totalSlides = 8;
+
+            function initSlideIndicators() {
+                const indicator = document.getElementById('slide-indicator');
+                indicator.innerHTML = "";
+                for (let i = 1; i <= totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'slide-dot' + (i === 1 ? ' active' : '');
+                    dot.onclick = () => goToSlide(i);
+                    indicator.appendChild(dot);
+                }
             }
-        }
 
-        function updateSlide() {
-            // Update slides
-            document.querySelectorAll('.slide').forEach(slide => {
-                slide.classList.remove('active');
-            });
-            document.querySelector(`[data-slide="${currentSlide}"]`).classList.add('active');
+            function renderGlossaryForSlide(slideNum) {
+                const items = glossary[slideNum] || [];
+                const body = document.getElementById('glossary-body');
+                const toggleBtn = document.getElementById('glossary-toggle');
 
-            // Update indicators
-            document.querySelectorAll('.slide-dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index + 1 === currentSlide);
-            });
+                if (!items.length) {
+                    toggleBtn.disabled = true;
+                    body.innerHTML = `
+                        <div class="glossary-item">
+                            <div class="glossary-term">Ingen ordliste</div>
+                            <div class="glossary-def">Denne slide har ikke en ordliste.</div>
+                        </div>
+                    `;
+                    return;
+                }
 
-            // Update notes
-            document.getElementById('notes-content').textContent = speakerNotes[currentSlide];
+                toggleBtn.disabled = false;
+                body.innerHTML = items.map(item => `
+                    <div class="glossary-item">
+                        <div class="glossary-term">${item.term}</div>
+                        <div class="glossary-def">${item.def}</div>
+                    </div>
+                `).join('');
+            }
 
-            // Update buttons
-            document.getElementById('prev-btn').disabled = currentSlide === 1;
-            document.getElementById('next-btn').disabled = currentSlide === totalSlides;
-        }
+            function toggleGlossary() {
+                const panel = document.getElementById('glossary-panel');
+                const toggle = document.getElementById('glossary-toggle');
 
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
+                if (toggle.disabled) return;
+
+                // Close notes if open
+                const notesPanel = document.getElementById('notes-panel');
+                const notesToggle = document.getElementById('notes-toggle');
+                notesPanel.classList.remove('active');
+                notesToggle.classList.remove('active');
+
+                panel.classList.toggle('active');
+                toggle.classList.toggle('active');
+                panel.setAttribute('aria-hidden', panel.classList.contains('active') ? 'false' : 'true');
+            }
+
+            function closeGlossary() {
+                const panel = document.getElementById('glossary-panel');
+                const toggle = document.getElementById('glossary-toggle');
+                panel.classList.remove('active');
+                toggle.classList.remove('active');
+                panel.setAttribute('aria-hidden', 'true');
+            }
+
+            function updateSlide() {
+                // Update slides
+                document.querySelectorAll('.slide').forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                const activeSlide = document.querySelector(`[data-slide="${currentSlide}"]`);
+                if (activeSlide) activeSlide.classList.add('active');
+
+                // Update indicators
+                document.querySelectorAll('.slide-dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index + 1 === currentSlide);
+                });
+
+                // Update notes
+                document.getElementById('notes-content').textContent = speakerNotes[currentSlide] || "";
+
+                // Update buttons
+                document.getElementById('prev-btn').disabled = currentSlide === 1;
+                document.getElementById('next-btn').disabled = currentSlide === totalSlides;
+
+                // Update glossary
+                renderGlossaryForSlide(currentSlide);
+                closeGlossary();
+            }
+
+            function nextSlide() {
+                if (currentSlide < totalSlides) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            }
+
+            function previousSlide() {
+                if (currentSlide > 1) {
+                    currentSlide--;
+                    updateSlide();
+                }
+            }
+
+            function goToSlide(slideNum) {
+                currentSlide = slideNum;
                 updateSlide();
             }
-        }
 
-        function previousSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateSlide();
+            function toggleNotes() {
+                closeGlossary();
+                const panel = document.getElementById('notes-panel');
+                const toggle = document.getElementById('notes-toggle');
+                panel.classList.toggle('active');
+                toggle.classList.toggle('active');
             }
-        }
 
-        function goToSlide(slideNum) {
-            currentSlide = slideNum;
+            function toggleExpand(header) {
+                const item = header.parentElement;
+                const wasExpanded = item.classList.contains('expanded');
+
+                // Close all items on the same slide
+                const slide = item.closest('.slide');
+                slide.querySelectorAll('.expandable-item').forEach(el => {
+                    el.classList.remove('expanded');
+                });
+
+                // Toggle current item
+                if (!wasExpanded) {
+                    item.classList.add('expanded');
+                }
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    previousSlide();
+                } else if (e.key === 'n' || e.key === 'N') {
+                    e.preventDefault();
+                    toggleNotes();
+                } else if (e.key === 'o' || e.key === 'O') {
+                    e.preventDefault();
+                    toggleGlossary();
+                } else if (e.key === 'Escape') {
+                    closeGlossary();
+                    const panel = document.getElementById('notes-panel');
+                    const toggle = document.getElementById('notes-toggle');
+                    panel.classList.remove('active');
+                    toggle.classList.remove('active');
+                }
+            });
+
+            // Initialize
+            initSlideIndicators();
             updateSlide();
-        }
-
-        function toggleNotes() {
-            const panel = document.getElementById('notes-panel');
-            const toggle = document.getElementById('notes-toggle');
-            panel.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
-
-        function toggleExpand(header) {
-            const item = header.parentElement;
-            const wasExpanded = item.classList.contains('expanded');
-
-            // Close all items on the same slide
-            const slide = item.closest('.slide');
-            slide.querySelectorAll('.expandable-item').forEach(el => {
-                el.classList.remove('expanded');
-            });
-
-            // Toggle current item
-            if (!wasExpanded) {
-                item.classList.add('expanded');
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                previousSlide();
-            } else if (e.key === 'n' || e.key === 'N') {
-                e.preventDefault();
-                toggleNotes();
-            }
-        });
-
-        // Initialize
-        initSlideIndicators();
-        updateSlide();
-    </script>
+        </script>
+     </div>
 </body>
 </html>
