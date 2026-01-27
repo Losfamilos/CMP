@@ -834,6 +834,45 @@
     z-index: 3;
     background: var(--mckinsey-navy);
   }
+    /* ===== SLIDE 5: få titel + tabel til at passe uden “tvunget zoom” ===== */
+.slide,
+.slide-content,
+.scrollable-content{
+  max-width: 100%;
+  min-width: 0;
+}
+
+/* Slide 5 titel må wrappe */
+.slide-erm .section-header{
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: unset !important;
+  word-break: break-word;
+  hyphens: auto;
+  line-height: 1.15;
+  font-size: 1.15rem !important;
+}
+
+/* Wrapperen tager scroll-ansvaret */
+.table-wrap{
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Lad tabel-headers wrappe */
+.mckinsey-table th{
+  white-space: normal !important;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* (valgfrit) bedre mobil layout/zoom-håndtering */
+body{ overflow: auto; }
+.presentation-container{ overflow: hidden; }
+
 }
 
 
@@ -1549,6 +1588,7 @@
      </div>
 </body>
 </html>
+
 
 
 
