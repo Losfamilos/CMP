@@ -631,19 +631,25 @@
             font-weight: 300;
         }
 
-        @media (max-width: 1200px) {
-            .main-title { font-size: 2.8rem; }
-            .section-header { font-size: 1.8rem; }
-            .slide { padding: 3rem 4rem; }
-            .top-nav, .bottom-nav { padding: 0 2rem; }
-            .priority-grid { grid-template-columns: 1fr; }
-        }
+       /* ================= DESKTOP → TABLET ================= */
+@media (max-width: 1200px) {
+  .main-title { font-size: 2.8rem; }
+  .section-header { font-size: 1.8rem; }
+  .slide { padding: 3rem 4rem; }
+  .top-nav, .bottom-nav { padding: 0 2rem; }
+  .priority-grid { grid-template-columns: 1fr; }
+}
 
-        @media (max-width: 900px) {
-            .glossary-toggle { right: 10px; }
-            .glossary-panel { width: min(420px, 94vw); }
-        }
-       @media (max-width: 600px) {
+/* ================= TABLET ================= */
+@media (max-width: 900px) {
+  .glossary-toggle { right: 10px; }
+  .glossary-panel { width: min(420px, 94vw); }
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+
+  /* ===== TOP NAV ===== */
   .top-nav {
     flex-direction: column !important;
     height: auto !important;
@@ -658,9 +664,7 @@
     white-space: normal !important;
   }
 
-  .nav-logo-center {
-    order: 2 !important;
-  }
+  .nav-logo-center { order: 2 !important; }
 
   .brand-logo {
     font-size: 0.95rem !important;
@@ -673,55 +677,70 @@
     width: 100% !important;
   }
 
+  /* Slides starter lavere pga højere topbar */
   .slide {
     top: 110px !important;
+    bottom: 58px !important; /* plads til bundbar */
     padding: 2rem 1.2rem !important;
   }
 
-  .glossary-panel {
-    top: 110px !important;
-  }
-        @media (max-width: 600px){
+  .glossary-panel { top: 110px !important; }
 
-  /* Bundbar: 3 faste felter */
-  .bottom-nav{
+  /* ===== BOTTOM NAV (én linje, 3 kolonner) ===== */
+  .bottom-nav {
     height: 58px !important;
     padding: 0.35rem 0.45rem !important;
     gap: 0.35rem !important;
 
     display: grid !important;
-    grid-template-columns: 1fr 1fr 1fr !important; /* ✅ Forrige | Talerpunkter | Næste */
+    grid-template-columns: 1fr 1fr 1fr !important;
     align-items: center !important;
 
-    overflow: visible !important;
+    z-index: 1000 !important;
   }
 
-  /* Knapper: fyld hver sin kolonne */
   .bottom-nav .nav-btn,
-  .bottom-nav .notes-toggle{
+  .bottom-nav .notes-toggle {
     width: 100% !important;
     min-width: 0 !important;
-    padding: 0.45rem 0.4rem !important;
+    padding: 0.42rem 0.35rem !important;
     font-size: 0.74rem !important;
     line-height: 1 !important;
     white-space: nowrap !important;
   }
-@media (max-width: 600px){
 
-  /* 1) Sørg for at slide-indhold ikke ligger bag bundbaren */
-  .slide{
-    bottom: 58px !important;   /* sæt til samme højde som din mobile bottom-nav */
+  /* ===== Title slide komprimering ===== */
+  .main-title {
+    font-size: 2.2rem !important;
+    margin-bottom: 1.2rem !important;
   }
 
-  /* 2) Træk “Præsenteret af …” op (den har margin-top: 4rem på desktop) */
-  .presenter-info{
-    margin-top: 1.2rem !important;
+  .subtitle { font-size: 1.05rem !important; }
+  .sub-subtitle { font-size: 0.9rem !important; margin-bottom: 1.4rem !important; }
+
+  .presenter-info {
+    margin-top: 1.1rem !important;
     font-size: 0.78rem !important;
+    line-height: 1.35 !important;
   }
 
+  /* ===== NOTES PANEL (helt skjult når lukket) ===== */
+  .notes-panel {
+    bottom: 58px !important;
+    max-height: 45vh !important;
+
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transform: translateY(calc(100% + 24px)) !important;
+  }
+
+  .notes-panel.active {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: translateY(0) !important;
+  }
 }
 
-}
     </style>
 </head>
 <body>
@@ -1429,6 +1448,7 @@
      </div>
 </body>
 </html>
+
 
 
 
