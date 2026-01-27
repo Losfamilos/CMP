@@ -681,42 +681,35 @@
   .glossary-panel {
     top: 110px !important;
   }
-          @media (max-width: 600px) {
+         @media (max-width: 600px) {
   :root{
-    --mobile-bottom-nav-h: 64px; /* match din bottom-nav højde */
+    --mobile-bottom-nav-h: 64px;
   }
 
   .bottom-nav{
     height: var(--mobile-bottom-nav-h) !important;
-    padding: 0.6rem 0.8rem !important;
-    gap: 0.5rem !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
+    padding: 0.5rem 0.6rem !important;
+    gap: 0.4rem !important;
+
+    flex-wrap: nowrap !important;     /* ✅ vigtig: ingen wrap */
+    justify-content: space-between !important;
+    align-items: center !important;
   }
 
-  /* ✅ Notes panel: helt væk når ikke aktiv */
-  .notes-panel{
-    position: fixed !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: var(--mobile-bottom-nav-h) !important;
-
-    max-height: 45vh !important;
-
-    /* vigtigste linje: skub den HELT ud (100% af egen højde + bundbar) */
-    transform: translateY(calc(100% + var(--mobile-bottom-nav-h) + 16px)) !important;
-
-    opacity: 0 !important;
-    pointer-events: none !important;
-
-    z-index: 1200 !important;
-    will-change: transform;
+  .bottom-nav .nav-btn,
+  .bottom-nav .notes-toggle{
+    padding: 0.55rem 0.7rem !important;
+    font-size: 0.80rem !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;   /* ✅ undgå knappen bliver “2 linjer” */
   }
 
-  .notes-panel.active{
-    transform: translateY(0) !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
+  /* ✅ fjern de store min-widths der skubber næste ud */
+  .bottom-nav #prev-btn,
+  .bottom-nav #next-btn,
+  .bottom-nav #notes-toggle{
+    min-width: 0 !important;
+    flex: 1 1 0 !important;
   }
 }
 
@@ -1428,6 +1421,7 @@
      </div>
 </body>
 </html>
+
 
 
 
