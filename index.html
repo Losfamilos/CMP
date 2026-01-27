@@ -506,6 +506,24 @@
               min-height: 0;
               overflow-y: auto;
         }
+        
+        /* Horisontal scroll til brede tabeller (ERM) */
+        .table-wrap{
+          width: 100%;
+          overflow-x: auto;
+          overflow-y: hidden;
+          -webkit-overflow-scrolling: touch; /* iPhone “fingerrul” */
+          border: 1px solid var(--border-gray);
+          background: white;
+          display: block;
+        }
+        
+        .table-wrap .mckinsey-table{
+          width: 100%;
+          min-width: 980px; /* gør at den kan scrolles på mobil */
+          border-collapse: collapse;
+        }
+
 
         /* Custom scrollbar */
         .scrollable-content::-webkit-scrollbar { width: 6px; }
@@ -678,7 +696,7 @@
     width: 100% !important;
   }
 
-  /* Slides starter lavere pga højere topbar og slutter over bundbar */
+  /* Slides placering mellem top og bund */
   .slide {
     top: 110px !important;
     bottom: 58px !important;
@@ -696,7 +714,6 @@
     display: grid !important;
     grid-template-columns: 1fr 1fr 1fr !important;
     align-items: center !important;
-
     z-index: 1000 !important;
   }
 
@@ -710,7 +727,7 @@
     white-space: nowrap !important;
   }
 
-  /* ===== Title slide komprimering ===== */
+  /* ===== TITLE SLIDE KOMPRIMERING ===== */
   .main-title {
     font-size: 2.2rem !important;
     margin-bottom: 1.2rem !important;
@@ -729,7 +746,6 @@
   .notes-panel {
     bottom: 58px !important;
     max-height: 45vh !important;
-
     opacity: 0 !important;
     pointer-events: none !important;
     transform: translateY(calc(100% + 24px)) !important;
@@ -741,29 +757,35 @@
     transform: translateY(0) !important;
   }
 
-  /* ===== ERM TABLE FIX (kun mobil) ===== */
+  /* ===== ERM TABLE – MOBILE FIX ===== */
 
-  /* Gør tabellen horisontalt scroll-bar */
-  .scrollable-content table {
-    display: block !important;
-    width: 100% !important;
+  /* Lodret scroll på slide */
+  .scrollable-content {
+    touch-action: pan-y;
+  }
+
+  /* Horisontal scroll på tabel */
+  .table-wrap {
+    touch-action: pan-x;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Sørg for at kolonner ikke presses sammen */
   .mckinsey-table {
-    min-width: 900px !important;
+    font-size: 0.78rem !important;
+    min-width: 980px !important;
   }
 
-  /* Lidt mere kompakt tabel */
   .mckinsey-table th,
   .mckinsey-table td {
-    padding: 0.7rem !important;
-    font-size: 0.78rem !important;
+    padding: 0.6rem !important;
+  }
+
+  .mckinsey-table td:first-child,
+  .mckinsey-table th:first-child {
+    white-space: nowrap !important;
   }
 }
-
 
     </style>
 </head>
@@ -1002,6 +1024,7 @@
             <div class="slide-content">
                 <h2 class="section-header">ERM-taksonomi × Produktlivscyklus (inkl. non-financial risks)</h2>
                 <div class="scrollable-content">
+                    <div class="table-wrap">
                     <table class="mckinsey-table">
                         <thead>
                             <tr>
@@ -1053,6 +1076,7 @@
 
                     <div class="insight-box">
                         <strong>Formål:</strong> Ikke flere kontroller – men en ensartet, ledelsesegnet metode til at stille de rigtige risikospørgsmål i hver fase, dokumentere beslutninger og drive løbende monitorering på tværs af både finansielle og ikke-finansielle risici.
+                    </div>
                     </div>
                 </div>
             </div>
@@ -1472,6 +1496,7 @@
      </div>
 </body>
 </html>
+
 
 
 
