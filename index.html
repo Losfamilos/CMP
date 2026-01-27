@@ -31,7 +31,7 @@
         /* Full-screen slide container - NO SCROLLING */
         .presentation-container {
             width: 100vw;
-            height: 100vh;
+            height: 100dvh;
             position: relative;
             overflow: hidden;
         }
@@ -646,6 +646,30 @@
             .glossary-toggle { right: 10px; }
             .glossary-panel { width: min(420px, 94vw); }
         }
+        @media (max-width: 600px) {
+  .slide { padding: 1.25rem 1.25rem; }
+
+  .main-title { font-size: 2rem; }
+  .section-header { font-size: 1.35rem; margin-bottom: 1.5rem; }
+
+  .top-nav { padding: 0 1rem; height: 56px; }
+  .bottom-nav { padding: 0 1rem; height: 64px; }
+
+  .scrollable-content {
+    max-height: calc(100dvh - 56px - 64px - 2rem);
+  }
+
+  .glossary-toggle {
+    top: auto;
+    bottom: 82px;
+    right: 12px;
+    transform: none;
+  }
+
+  .glossary-panel {
+    width: 100vw;
+  }
+}
     </style>
 </head>
 <body>
@@ -1353,3 +1377,4 @@
      </div>
 </body>
 </html>
+
