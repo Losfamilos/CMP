@@ -768,111 +768,105 @@
     transform: translateY(0) !important;
   }
 
-  /* ===== GENEREL TABLE SCROLL (alle slides) ===== */
-  .scrollable-content { touch-action: pan-y; }
+  /* ===== GENERELLE MOBIL-FIXES FOR LAYOUT ===== */
+  .slide,
+  .slide-content,
+  .scrollable-content {
+    max-width: 100%;
+    min-width: 0;
+  }
 
+  /* Lodret scroll i slide-indhold */
+  .scrollable-content {
+    touch-action: pan-y;
+  }
+
+  /* ===== TABLE SCROLL (alle slides) ===== */
   .table-wrap {
-    touch-action: pan-x;
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
   }
 
   .mckinsey-table {
     font-size: 0.78rem !important;
-    min-width: 980px !important;
+    min-width: 980px !important; /* gør at man kan scrolle horisontalt */
   }
 
   .mckinsey-table th,
-  .mckinsey-table td { padding: 0.6rem !important; }
+  .mckinsey-table td {
+    padding: 0.6rem !important;
+  }
+
+  /* Lad tabel-headers wrappe så de ikke klipper */
+  .mckinsey-table th {
+    white-space: normal !important;
+    word-break: break-word;
+    hyphens: auto;
+  }
 
   .mckinsey-table td:first-child,
-  .mckinsey-table th:first-child { white-space: nowrap !important; }
-
+  .mckinsey-table th:first-child {
+    white-space: nowrap !important;
+  }
 
   /* ===================================================== */
-  /* ========= SLIDE 5 (ERM) – STABIL MOBIL LØSNING ====== */
+  /* ========= SLIDE 5 (ERM) – MOBIL: TITEL + TABEL ======= */
   /* ===================================================== */
 
   /* Gør slide 5 til flex-layout */
-  .slide-erm .slide-content{
+  .slide-erm .slide-content {
     height: 100%;
     display: flex;
     flex-direction: column;
     min-height: 0;
   }
 
-  /* Sticky slide-overskrift */
-  .slide-erm .section-header{
+  /* Slide 5 titel: wrap + sticky */
+  .slide-erm .section-header {
     position: sticky;
     top: 0;
     z-index: 5;
     background: white;
+
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    word-break: break-word;
+    hyphens: auto;
+
+    line-height: 1.15;
+    font-size: 1.15rem !important;
     margin-bottom: 0.75rem !important;
     padding-bottom: 0.75rem;
   }
 
-  /* Scroll-område under header */
-  .slide-erm .scrollable-content{
+  /* Under titlen: scroll */
+  .slide-erm .scrollable-content {
     flex: 1;
     min-height: 0;
-    overflow-y: auto;
+    overflow-y: auto !important;
     padding-bottom: 0.75rem;
   }
 
-  /* Selve tabel-viewet */
-  .slide-erm .table-wrap{
-    max-height: 45vh;
-    overflow-y: auto;
-    overflow-x: auto;
+  /* Slide 5: tabel får sin egen “viewport” med vertikal scroll */
+  .slide-erm .table-wrap {
+    max-height: 45vh !important;      /* justér 40–55vh efter smag */
+    overflow-y: auto !important;
+    overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
+    position: relative;              /* hjælper især på iOS */
   }
 
-  /* Sticky kolonne-headers i tabellen */
-  .slide-erm .mckinsey-table thead th{
+  /* Sticky kolonne-headers inde i tabellen */
+  .slide-erm .mckinsey-table thead th {
     position: sticky;
     top: 0;
     z-index: 3;
     background: var(--mckinsey-navy);
   }
-    /* ===== SLIDE 5: få titel + tabel til at passe uden “tvunget zoom” ===== */
-.slide,
-.slide-content,
-.scrollable-content{
-  max-width: 100%;
-  min-width: 0;
-}
-
-/* Slide 5 titel må wrappe */
-.slide-erm .section-header{
-  white-space: normal !important;
-  overflow: visible !important;
-  text-overflow: unset !important;
-  word-break: break-word;
-  hyphens: auto;
-  line-height: 1.15;
-  font-size: 1.15rem !important;
-}
-
-/* Wrapperen tager scroll-ansvaret */
-.table-wrap{
-  width: 100%;
-  max-width: 100%;
-  overflow-x: auto !important;
-  overflow-y: hidden !important;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* Lad tabel-headers wrappe */
-.mckinsey-table th{
-  white-space: normal !important;
-  word-break: break-word;
-  hyphens: auto;
-}
-
-/* (valgfrit) bedre mobil layout/zoom-håndtering */
-body{ overflow: auto; }
-.presentation-container{ overflow: hidden; }
-
 }
 
 
@@ -1588,6 +1582,7 @@ body{ overflow: auto; }
      </div>
 </body>
 </html>
+
 
 
 
