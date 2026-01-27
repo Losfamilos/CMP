@@ -681,46 +681,42 @@
   .glossary-panel {
     top: 110px !important;
   }
-           @media (max-width: 600px) {
+          @media (max-width: 600px) {
+  :root{
+    --mobile-bottom-nav-h: 64px; /* match din bottom-nav højde */
+  }
+
   .bottom-nav{
-    height: 64px !important;              /* fast højde = stabilt layout */
+    height: var(--mobile-bottom-nav-h) !important;
     padding: 0.6rem 0.8rem !important;
     gap: 0.5rem !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
   }
 
-  .bottom-nav .nav-btn,
-  .bottom-nav .notes-toggle{
-    padding: 0.55rem 0.9rem !important;
-    font-size: 0.82rem !important;
-    line-height: 1 !important;
-  }
-
-  .bottom-nav #prev-btn,
-  .bottom-nav #next-btn{
-    flex: 1 1 120px !important;
-    min-width: 120px !important;
-  }
-
-  .bottom-nav #notes-toggle{
-    flex: 1 1 140px !important;
-    min-width: 140px !important;
-  }
-
-  /* ✅ FIX: notes-panel skal være fixed og ligge lige over bundbaren */
+  /* ✅ Notes panel: helt væk når ikke aktiv */
   .notes-panel{
     position: fixed !important;
     left: 0 !important;
     right: 0 !important;
-    bottom: 64px !important;              /* matcher bottom-nav height */
+    bottom: var(--mobile-bottom-nav-h) !important;
+
     max-height: 45vh !important;
-    transform: translateY(110%) !important;
+
+    /* vigtigste linje: skub den HELT ud (100% af egen højde + bundbar) */
+    transform: translateY(calc(100% + var(--mobile-bottom-nav-h) + 16px)) !important;
+
+    opacity: 0 !important;
+    pointer-events: none !important;
+
     z-index: 1200 !important;
+    will-change: transform;
   }
 
   .notes-panel.active{
     transform: translateY(0) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
   }
 }
 
@@ -1432,6 +1428,7 @@
      </div>
 </body>
 </html>
+
 
 
 
