@@ -6,11 +6,7 @@
     <title>Risk Management & Governance - Jeppe</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Spectral:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --mckinsey-navy: #002855;
@@ -43,9 +39,7 @@
         /* Minimal Top Navigation */
         .top-nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 60px;
             background: white;
             border-bottom: 1px solid var(--border-gray);
@@ -63,6 +57,7 @@
             letter-spacing: 0.5px;
             color: var(--mckinsey-navy);
             flex: 1;
+            text-transform: uppercase;
         }
 
         .nav-logo-center {
@@ -73,7 +68,7 @@
             opacity: 0.95;
         }
 
-        /* NEW: JP Morgan-ish wordmark logo */
+        /* JP Morgan-ish wordmark */
         .brand-logo {
             font-family: 'Spectral', serif;
             font-size: 1.25rem;
@@ -86,12 +81,10 @@
             line-height: 1;
             white-space: nowrap;
         }
-
         .brand-logo span {
             font-weight: 400;
             letter-spacing: 1.1px;
         }
-
         .brand-logo::after {
             content: "";
             position: absolute;
@@ -112,14 +105,10 @@
             flex: 1;
         }
 
-        .slide-indicator {
-            display: flex;
-            gap: 0.4rem;
-        }
+        .slide-indicator { display: flex; gap: 0.4rem; }
 
         .slide-dot {
-            width: 8px;
-            height: 8px;
+            width: 8px; height: 8px;
             border-radius: 50%;
             background: var(--border-gray);
             cursor: pointer;
@@ -132,17 +121,12 @@
             border-radius: 4px;
         }
 
-        .slide-dot:hover {
-            background: var(--mckinsey-blue);
-        }
+        .slide-dot:hover { background: var(--mckinsey-blue); }
 
         /* Full-screen slides */
         .slide {
             position: absolute;
-            top: 60px;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 60px; left: 0; right: 0; bottom: 0;
             opacity: 0;
             visibility: hidden;
             transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -166,15 +150,9 @@
             justify-content: center;
         }
 
-        /* Title Slide - McKinsey style */
-        .title-slide {
-            background: var(--mckinsey-navy);
-        }
-
-        .title-slide .slide-content {
-            align-items: flex-start;
-            justify-content: center;
-        }
+        /* Title Slide */
+        .title-slide { background: var(--mckinsey-navy); }
+        .title-slide .slide-content { align-items: flex-start; justify-content: center; }
 
         .main-title {
             font-family: 'Spectral', serif;
@@ -251,9 +229,7 @@
             transition: background 0.2s ease;
         }
 
-        .expandable-header:hover {
-            background: #f0f1f2;
-        }
+        .expandable-header:hover { background: #f0f1f2; }
 
         .expandable-title {
             font-size: 1rem;
@@ -272,9 +248,7 @@
             font-weight: 300;
         }
 
-        .expandable-item.expanded .expand-icon {
-            transform: rotate(90deg);
-        }
+        .expandable-item.expanded .expand-icon { transform: rotate(90deg); }
 
         .expandable-content {
             max-height: 0;
@@ -295,10 +269,7 @@
             color: var(--charcoal);
         }
 
-        .expandable-content ul {
-            list-style: none;
-            padding-left: 0;
-        }
+        .expandable-content ul { list-style: none; padding-left: 0; }
 
         .expandable-content li {
             padding: 0.5rem 0;
@@ -314,11 +285,11 @@
             font-weight: 600;
         }
 
-        /* McKinsey-style table */
+        /* Table */
         .mckinsey-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             font-size: 0.9rem;
         }
 
@@ -339,13 +310,13 @@
             vertical-align: top;
         }
 
-        .mckinsey-table tbody tr:hover {
-            background: var(--light-gray);
-        }
+        .mckinsey-table tbody tr:hover { background: var(--light-gray); }
 
         .mckinsey-table td:first-child {
             font-weight: 600;
             color: var(--mckinsey-navy);
+            width: 130px;
+            white-space: nowrap;
         }
 
         /* Priority Grid */
@@ -368,9 +339,7 @@
         .priority-card::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
+            left: 0; top: 0; bottom: 0;
             width: 3px;
             background: var(--mckinsey-blue);
             transition: width 0.3s ease;
@@ -382,9 +351,7 @@
             transform: translateY(-2px);
         }
 
-        .priority-card:hover::before {
-            width: 4px;
-        }
+        .priority-card:hover::before { width: 4px; }
 
         .priority-card h3 {
             font-family: 'Spectral', serif;
@@ -395,10 +362,7 @@
             letter-spacing: 0.2px;
         }
 
-        .priority-card ul {
-            list-style: none;
-            padding: 0;
-        }
+        .priority-card ul { list-style: none; padding: 0; }
 
         .priority-card li {
             padding: 0.5rem 0;
@@ -426,7 +390,7 @@
             background: linear-gradient(to right, #f8f9fa 0%, #ffffff 100%);
             border-left: 3px solid var(--accent-gold);
             padding: 1.8rem 2.2rem;
-            margin-top: 2.5rem;
+            margin-top: 2.2rem;
             font-size: 0.95rem;
             line-height: 1.75;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
@@ -441,9 +405,7 @@
         /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             height: 70px;
             background: white;
             border-top: 1px solid var(--border-gray);
@@ -472,10 +434,7 @@
             color: white;
         }
 
-        .nav-btn:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
+        .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
         .nav-btn.primary {
             background: var(--mckinsey-navy);
@@ -491,8 +450,7 @@
         .notes-panel {
             position: fixed;
             bottom: 70px;
-            left: 0;
-            right: 0;
+            left: 0; right: 0;
             max-height: 35vh;
             background: var(--mckinsey-navy);
             color: white;
@@ -503,9 +461,7 @@
             overflow-y: auto;
         }
 
-        .notes-panel.active {
-            transform: translateY(0);
-        }
+        .notes-panel.active { transform: translateY(0); }
 
         .notes-panel h4 {
             font-family: 'Spectral', serif;
@@ -555,39 +511,16 @@
         }
 
         /* Custom scrollbar */
-        .scrollable-content::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .scrollable-content::-webkit-scrollbar-track {
-            background: var(--light-gray);
-        }
-
-        .scrollable-content::-webkit-scrollbar-thumb {
-            background: var(--mckinsey-blue);
-            border-radius: 3px;
-        }
+        .scrollable-content::-webkit-scrollbar { width: 6px; }
+        .scrollable-content::-webkit-scrollbar-track { background: var(--light-gray); }
+        .scrollable-content::-webkit-scrollbar-thumb { background: var(--mckinsey-blue); border-radius: 3px; }
 
         @media (max-width: 1200px) {
-            .main-title {
-                font-size: 2.8rem;
-            }
-
-            .section-header {
-                font-size: 1.8rem;
-            }
-
-            .slide {
-                padding: 3rem 4rem;
-            }
-
-            .top-nav, .bottom-nav {
-                padding: 0 2rem;
-            }
-
-            .priority-grid {
-                grid-template-columns: 1fr;
-            }
+            .main-title { font-size: 2.8rem; }
+            .section-header { font-size: 1.8rem; }
+            .slide { padding: 3rem 4rem; }
+            .top-nav, .bottom-nav { padding: 0 2rem; }
+            .priority-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -597,7 +530,6 @@
         <nav class="top-nav">
             <div class="nav-logo">RISK MANAGEMENT & GOVERNANCE</div>
 
-            <!-- CHANGED: centered logo (JP Morgan-ish wordmark) -->
             <div class="nav-logo-center">
                 <div class="brand-logo">Lynton <span>& Co.</span></div>
             </div>
@@ -620,73 +552,76 @@
             </div>
         </div>
 
-        <!-- Slide 2: Burning Platform -->
+        <!-- Slide 2: Burning Platform (UPDATED for 2026) -->
         <div class="slide" data-slide="2">
             <div class="slide-content">
                 <h2 class="section-header">Burning Platform – Hvorfor handle nu?</h2>
                 <div class="scrollable-content">
+
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Regulatorisk momentum</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Value for Money & EU Retail Investment Strategy (RIS)</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Skærpet fokus på Value for Money, Product Governance (MiFID II) og ESG-transparens. Regulatorer forventer nu dokumenteret bevis for kundeværdi gennem hele produktets livscyklus, ikke blot ved lancering.</p>
+                            <p>I 2026 er “value for money” og dokumenteret kundeværdi blevet et centralt ledelses- og governance-krav – ikke kun et dokument. Produktporteføljen skal kunne tåle tilsynsmæssig sammenligning, peer benchmarking og robust rationale for fees vs. outcomes.</p>
+                            <ul>
+                                <li>Styrket produktgovernance som “license to distribute”</li>
+                                <li>Strammere fokus på målgruppe, omkostninger og net performance</li>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Markedets kompleksitet</strong>
-                            </span>
+                            <span class="expandable-title"><strong>MiFID II/MiFIR review – stigende krav til transparens & governance</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Flere illikvide og alternative investeringer kræver dybere risk-analyse. Traditionelle risikomodeller er ikke tilstrækkelige for komplekse strukturerede produkter og alternative assets.</p>
+                            <p>Markedets struktur og transparenskrav udvikler sig. Det driver højere forventninger til datakvalitet, dokumentation og governance omkring produktets design, distribution og løbende monitorering.</p>
+                            <ul>
+                                <li>Klarere governance-sporbarhed (hvem besluttede hvad, hvornår og hvorfor)</li>
+                                <li>Forventninger til monitorering af produktperformance og kundedata i drift</li>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Conduct Risk</strong>
-                            </span>
+                            <span class="expandable-title"><strong>DORA-virkelighed: ICT-resiliens & tredjepartsrisiko er nu “produkt-sikkerhed”</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Mis-selling eller forkert prissætning kan føre til massive bøder og omdømmeskade. Vi har set bøder på op til €100M+ for produktgovernance-fejl i de senere år.</p>
+                            <p>Efter DORA’s ikrafttræden er operational resilience og kritiske tredjepartsleverandører et bestyrelses- og ledelsesansvar. For værdipapirbaserede produkter betyder det, at teknologi, data, pricing engines, handels-/ordrerouting og leverandører skal ind i produktgovernance.</p>
+                            <ul>
+                                <li>Third-party risk, ICT controls og exit/continuity ind i produkt approval</li>
+                                <li>KRI’er for driftsstabilitet og data-kvalitet i løbende drift</li>
+                            </ul>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Operationel robusthed</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Markedets kompleksitet: illikviditet, strukturering og modelafhængighed</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Systemlandskaber kæmper med komplekse produktstrukturer. Legacy-systemer kan ikke håndtere moderne produktkompleksitet, hvilket fører til manuelle processer og fejlrisiko.</p>
+                            <p>Stigende appetit på alternative investeringer og komplekse produktstrukturer øger kravene til stresstest, likviditetsanalyse og model governance – særligt ift. prisfastsættelse, valuations og exit-scenarier.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Øget ledelsesansvar</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Conduct risk: én sag kan lukke distributionskanaler</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Produktgovernance er i stigende grad et direktions- og bestyrelsesanliggende. Personligt ansvar for senior management intensiveres gennem SMCR og lignende regimer.</p>
+                            <p>Mis-selling, utydelig målgruppe eller uigennemsigtig prissætning kan medføre bøder, påbud og tab af adgang til distribution. I praksis er det ofte “non-financial risks” der bliver forretningskritiske.</p>
                         </div>
                     </div>
 
                     <div class="insight-box">
-                        <strong>Kernebudskab:</strong> Ledelsen står over for et paradoks: Man skal innovere hurtigere, men fejlmargenen er mindre end nogensinde. Svag produktgovernance er derfor ikke bare en compliance-risiko — det er en strategisk trussel mod forretningsmodellen.
+                        <strong>Kernebudskab (2026):</strong> Produktgovernance er gået fra “compliance-artefakt” til <em>license to operate & distribute</em>. Ledelsen skal kunne bevise kundeværdi, tåle stresstest (finansielt/operationelt) og træffe hurtige, dokumenterede trade-offs.
                     </div>
                 </div>
             </div>
@@ -699,66 +634,56 @@
                 <div class="scrollable-content">
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Silo-tænkning</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Silo-tænkning</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Risk og Compliance involveres for sent i produktudviklingsprocessen. Dette medfører kostbare redesigns og forsinkelser når risici identificeres sent i processen.</p>
+                            <p>Risk og Compliance involveres for sent. Det giver redesigns, forsinkelser og “compliance retrofit” i stedet for risk-by-design.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Dokumentationsfælden</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Dokumentationsfælden</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>"Check-the-box" mentalitet erstatter reel challenge. Fokus ligger på at udfylde formularer frem for at stille de rigtige kritiske spørgsmål om produktegnethed.</p>
+                            <p>"Check-the-box" erstatter reel challenge. De hårde spørgsmål om likviditet i stress, value-for-money og kundemismatch kommer for sent – eller forsvinder i bilag.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Uklart ejerskab</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Uklart ejerskab</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>1st Line tror ofte, at 2nd Line "ejer" risikoen. Dette skaber en farlig antagelse om at produktrisiko primært er et compliance-anliggende frem for et forretningsansvar.</p>
+                            <p>1st Line tror ofte, at 2nd Line “ejer” risikoen. Det svækker accountability og gør governance til en kontrolfunktion, ikke et beslutningssystem.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>PAC-flaskehalse</strong>
-                            </span>
+                            <span class="expandable-title"><strong>PAC-flaskehalse</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Ineffektiv time-to-market grundet tungt bureaukrati. Alle produkter behandles ens, uanset risikoprofil, hvilket bremser simple launches og underressourcer komplekse.</p>
+                            <p>Alle produkter behandles ens uanset risikoprofil. Resultat: langsomt time-to-market for simple produkter og under-kontrol af komplekse produkter.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Governance-teater</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Governance-teater</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Formelle møder uden reelle risikodiskussioner. Beslutninger er ofte allerede truffet før PAC-mødet, som blot bliver en formalitet.</p>
+                            <p>Beslutninger er i praksis taget før mødet. PAC bliver en formalitet frem for et forum der afvejer trade-offs og eskalerer materialitet.</p>
                         </div>
                     </div>
 
                     <div class="insight-box">
-                        <strong>Realiteten:</strong> Hos mange organisationer ser vi "governance på papiret". Man udfylder skemaerne, men de svære diskussioner om fx likviditet i stress eller kundemismatch tages ikke tidligt nok. Ejerskabet skal tydeligt tilbage i forretningen.
+                        <strong>Realiteten:</strong> Mange organisationer har governance på papiret – men ikke et beslutningssystem i drift. Målet er “de rigtige spørgsmål på det rigtige tidspunkt” med tydelig accountability.
                     </div>
                 </div>
             </div>
@@ -771,118 +696,120 @@
                 <div class="scrollable-content">
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Aktiv 1st Line</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Aktiv 1st Line</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Business ejer produkt og risikovurdering fra dag ét. Produktejere skal have kompetencer og incitamenter til at identificere og håndtere risici proaktivt, ikke reaktivt.</p>
+                            <p>Business ejer produkt og risikovurdering fra dag ét. Produktejere skal have kompetencer og incitamenter til at drive risk-by-design.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Empowered 2nd Line</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Empowered 2nd Line</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Risk & Compliance med reel challenge og eskalationsret. 2nd Line skal have mandat til at stoppe launches og eskalere til direktion ved materielle bekymringer.</p>
+                            <p>Risk & Compliance med reel challenge og eskalationsret. 2nd Line skal kunne stoppe/eskalere ved materielle bekymringer.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Differentieret governance</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Differentieret governance (proportionalitet)</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
                             <ul>
-                                <li><strong>Fast-track:</strong> For standardprodukter med lav risiko – pre-approved frameworks og accelereret godkendelse</li>
-                                <li><strong>Deep-dive:</strong> For komplekse produkter med høj risiko – omfattende due diligence og senior-level review</li>
+                                <li><strong>Fast-track:</strong> Standardprodukter (lav risiko) – pre-approved frameworks, korte cycles</li>
+                                <li><strong>Deep-dive:</strong> Komplekse produkter (høj risiko) – senior review, strengere evidens</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Risk-based approach</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Risk rating koblet til RAF</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Differentiering baseret på Product Risk Rating koblet til RAF. Klar rating-metodik (lav/medium/høj risiko) baseret på produktkompleksitet, target market, volumen og likviditet.</p>
+                            <p>Product Risk Rating (L/M/H) kobles til risk appetite, limits, triggers og eskalationskrav. Risk appetite bliver beslutningsrettigheder – ikke et dokument.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Data-drevet monitorering</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Data-drevet monitorering</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Løbende KRI-dashboards med real-time alerts. Automatiseret overvågning af nøgleindikatorer som limit breaches, klager, pricing outliers og performance gaps.</p>
+                            <p>KRI-dashboards i drift: limit breaches, pricing outliers, performance gaps, klager, incidents, driftsstabilitet og tredjeparts-KRI’er.</p>
                         </div>
                     </div>
 
                     <div class="insight-box">
-                        <strong>Vision:</strong> Governance skal ikke bremse forretningen, men give bedre "bremser", så man kan bevæge sig hurtigere og mere sikkert. Differentiering sikrer proportionalitet og bedre ressourceudnyttelse.
+                        <strong>Vision:</strong> Governance skal ikke bremse forretningen, men give bedre “bremser”, så man kan bevæge sig hurtigere og mere sikkert – med tydelige trade-offs og eskalation ved materialitet.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 5: ERM Matrix -->
+        <!-- Slide 5: ERM Matrix (UPDATED taxonomy) -->
         <div class="slide" data-slide="5">
             <div class="slide-content">
-                <h2 class="section-header">ERM-Matrix over Produktlivscyklussen</h2>
+                <h2 class="section-header">ERM-taksonomi × Produktlivscyklus (inkl. non-financial risks)</h2>
                 <div class="scrollable-content">
                     <table class="mckinsey-table">
                         <thead>
                             <tr>
                                 <th>Fase</th>
-                                <th>Markeds- & Likviditetsrisiko</th>
-                                <th>Operationel & Modelrisiko</th>
-                                <th>Conduct & Compliance</th>
+                                <th>Finansielle risici (Marked/Kredit/Likviditet)</th>
+                                <th>Model & valuation risk</th>
+                                <th>Operational/ICT & tredjepart (DORA)</th>
+                                <th>Conduct/Compliance & kundebeskyttelse</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td>Design</td>
-                                <td>Stresstest & scenarier</td>
-                                <td>System-readiness</td>
-                                <td>Target Market (MiFID)</td>
+                                <td>Stresstest, illikviditet, exit-scenarier, koncentration</td>
+                                <td>Modelvalg, antagelser, valuation policy, uafhængig challenge</td>
+                                <td>System-readiness, data lineage, vendor dependency & exit-plan</td>
+                                <td>Target market, product complexity, disclosures, VFM rationale</td>
                             </tr>
                             <tr>
                                 <td>Approval</td>
-                                <td>Limit-fastsættelse</td>
-                                <td>Model-validering</td>
-                                <td>Fee-transparens</td>
+                                <td>Limits/triggers, hedging policy, liquidity buffers</td>
+                                <td>Model validation, backtesting plan, governance for overrides</td>
+                                <td>Resilience controls, incident playbooks, 3rd-party assurance</td>
+                                <td>Fees vs outcomes, distribution controls, conflicts management</td>
+                            </tr>
+                            <tr>
+                                <td>Launch</td>
+                                <td>Initial limits & monitoring setup, liquidity gating triggers</td>
+                                <td>Pricing/valuation runbook, exception handling</td>
+                                <td>Run & support model, monitoring tooling, vendor SLAs</td>
+                                <td>Suitability/appropriateness controls, comms & training</td>
                             </tr>
                             <tr>
                                 <td>Monitoring</td>
-                                <td>Daily breaches</td>
-                                <td>Fejlrapportering</td>
-                                <td>Klageovervågning</td>
+                                <td>Breaches, drawdowns, liquidity metrics, concentration</td>
+                                <td>Drift detection, model performance, valuation exceptions</td>
+                                <td>Incidents, uptime, cyber events, vendor KRI breaches</td>
+                                <td>Complaints, client outcomes, mis-selling indicators, VFM checks</td>
                             </tr>
                             <tr>
-                                <td>Review</td>
-                                <td>Performance vs. benchmark</td>
-                                <td>Data-integritet</td>
-                                <td>Value for Money</td>
+                                <td>Review / Exit</td>
+                                <td>Re-approval ved material change, wind-down plan</td>
+                                <td>Re-validation, governance lessons learned</td>
+                                <td>Exit/transition execution, resilience re-test</td>
+                                <td>Fair treatment of customers, remediation, disclosure updates</td>
                             </tr>
                         </tbody>
                     </table>
 
                     <div class="insight-box">
-                        <strong>Formål:</strong> Ikke flere kontroller, men at sikre at de rigtige risikospørgsmål stilles på det rigtige tidspunkt i produktets livscyklus — og dokumenteres på ledelsesniveau. ERM-tilgangen gør risikostyringen systematisk og fremadskuende.
+                        <strong>Formål:</strong> Ikke flere kontroller – men en ensartet, ledelsesegnet metode til at stille de rigtige risikospørgsmål i hver fase, dokumentere beslutninger og drive løbende monitorering på tværs af både finansielle og ikke-finansielle risici.
                     </div>
                 </div>
             </div>
@@ -895,78 +822,56 @@
                 <div class="scrollable-content">
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>PAC som beslutningsforum</strong>
-                            </span>
+                            <span class="expandable-title"><strong>PAC som beslutningsforum</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Tværfagligt Product Approval Committee med repræsentation fra Sales, Risk, Legal, Operations og Distribution. Klar balance mellem hastighed og grundighed.</p>
+                            <p>Tværfagligt Product Approval Committee (Investments, Sales/Distribution, Risk, Compliance, Legal, Ops/IT). Fokus: trade-offs, beslutningsrettigheder og evidens – ikke “rubber stamp”.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Mandater og rettigheder</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Mandater = beslutningsrettigheder (koblet til risk rating)</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Klare beslutningsrettigheder baseret på Product Risk Rating. Definition af hvem der kan godkende hvad, samt hvornår eskalering til højere niveau er påkrævet.</p>
+                            <p>Hvem kan acceptere hvilke risici, ved hvilke triggers? Fast-track vs deep-dive og klare eskalationskrav ved materialitet.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>CRO vetoret</strong>
-                            </span>
+                            <span class="expandable-title"><strong>CRO vetoret / eskalation</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Chief Risk Officer med vetoret eller direkte eskalationsret til direktion ved materielle risici. Sikrer at commercial pressure ikke overskygger risikohensyn.</p>
+                            <p>CRO skal kunne stoppe/eskalere, så commercial pressure ikke trumfer risikohensyn – især ved conduct, liquidity og ICT/third-party afhængigheder.</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Post-Implementation Review</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Post-Implementation Review (PIR)</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>PIR efter 6–12 måneder som fast læringsmekanisme. Systematisk evaluering af om produktet præsterer som forventet og lever op til kundeværdi-målsætninger.</p>
+                            <p>PIR efter 6–12 måneder: leverede vi kundeværdi, blev risici realiseret, fungerer distribution/controls, og skal produktet ændres/afvikles?</p>
                         </div>
                     </div>
 
                     <div class="expandable-item">
                         <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>RAF-integration</strong>
-                            </span>
+                            <span class="expandable-title"><strong>Bestyrelsesrapportering</strong></span>
                             <span class="expand-icon">›</span>
                         </div>
                         <div class="expandable-content">
-                            <p>Produktrisici skal være integreret i Risk Appetite Framework med klare limits og triggers. Produktlancering må ikke bringe institutionen uden for risk appetite.</p>
-                        </div>
-                    </div>
-
-                    <div class="expandable-item">
-                        <div class="expandable-header" onclick="toggleExpand(this)">
-                            <span class="expandable-title">
-                                <strong>Bestyrelsesrapportering</strong>
-                            </span>
-                            <span class="expand-icon">›</span>
-                        </div>
-                        <div class="expandable-content">
-                            <p>Periodisk rapportering til bestyrelsen på væsentlige produktrisici, launches og PIR-resultater. Bestyrelsen skal have visibility på produktportfoljen og governance-effektivitet.</p>
+                            <p>Board visibility på nye launches, material changes, breaches, PIR-konklusioner og porteføljens samlede produktrisici (incl. non-financial).</p>
                         </div>
                     </div>
 
                     <div class="insight-box">
-                        <strong>Klarhed er nøglen:</strong> Strukturen skal sikre: Hvem kan acceptere hvilke risici? Hvornår skal direktion eller bestyrelse involveres? PIR er afgørende for at lukke læringsloopet og sikre reel ansvarlighed.
+                        <strong>Klarhed er nøglen:</strong> Governance virker først, når risk appetite bliver til mandat og eskalation – og når PIR lukker læringsloopet.
                     </div>
                 </div>
             </div>
@@ -981,34 +886,38 @@
                         <div class="priority-card immediate">
                             <h3>Immediate (0–3 mdr.)</h3>
                             <ul>
-                                <li>Revidér PAC-mandat og definér Product Risk Appetite</li>
+                                <li>Revidér PAC-mandat + beslutningsrettigheder (risk rating)</li>
+                                <li>Definér Product Risk Appetite + Value-for-Money baseline</li>
                             </ul>
                         </div>
 
                         <div class="priority-card short-term">
                             <h3>Short-term (3–6 mdr.)</h3>
                             <ul>
-                                <li>Implementér differentieret godkendelsesproces (Fast-track / Deep-dive)</li>
+                                <li>Implementér fast-track/deep-dive proces</li>
+                                <li>Standardisér Product Risk Assessments (ERM-taksonomi)</li>
                             </ul>
                         </div>
 
                         <div class="priority-card medium-term">
                             <h3>Medium-term (6–12 mdr.)</h3>
                             <ul>
-                                <li>Automatisér KRI-rapportering og integrér i ledelses-MI</li>
+                                <li>Automatisér KRI/MI (incl. conduct + ICT/third-party)</li>
+                                <li>Indfør PIR som fast governance-rytme</li>
                             </ul>
                         </div>
 
                         <div class="priority-card culture">
                             <h3>Kultur & Kompetencer</h3>
                             <ul>
-                                <li>Træning af 1st Line i praktisk risikovurdering</li>
+                                <li>Træn 1st Line i risk-by-design + produktgovernance</li>
+                                <li>Justér incitamenter + tone-from-the-top</li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="insight-box">
-                        <strong>Første skridt:</strong> Hvis jeg kun måtte starte ét sted, ville det være at tydeliggøre Product Risk Appetite og mandatet i PAC. Uden klar risikovillighed og beslutningskraft bliver resten kun procesforbedringer.
+                        <strong>Første skridt:</strong> Start med “mandat + risk appetite + VFM baseline”. Uden det bliver resten procesoptimering – ikke risikostyring.
                     </div>
                 </div>
             </div>
