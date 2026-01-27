@@ -283,12 +283,13 @@
         }
 
         /* Table */
-        .mckinsey-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
+      .mckinsey-table{
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0;   /* ✅ vigtigt */
+      font-size: 0.9rem;
         }
+
 
         .mckinsey-table th {
             background: var(--mckinsey-navy);
@@ -507,22 +508,34 @@
               overflow-y: auto;
         }
         
-        /* Horisontal scroll til brede tabeller (ERM) */
-        .table-wrap{
-          width: 100%;
-          overflow-x: auto;
-          overflow-y: hidden;
-          -webkit-overflow-scrolling: touch; /* iPhone “fingerrul” */
-          border: 1px solid var(--border-gray);
-          background: white;
-          display: block;
-        }
-        
-        .table-wrap .mckinsey-table{
-          width: 100%;
-          min-width: 980px; /* gør at den kan scrolles på mobil */
-          border-collapse: collapse;
-        }
+        /* === TABLE BASE (retter scroll-problem på mobil) === */
+.mckinsey-table{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0;              /* ❗ fjernet margin herfra */
+  font-size: 0.9rem;
+}
+
+/* === WRAPPER som gør horisontal scroll muligt === */
+.table-wrap{
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+
+  border: 1px solid var(--border-gray);
+  background: white;
+  display: block;
+
+  margin-top: 1.2rem;         /* ✅ luft over tabel ligger HER nu */
+}
+
+/* Tabellen gøres bredere end mobilskærm */
+.table-wrap .mckinsey-table{
+  min-width: 980px;
+}
+
 
 
         /* Custom scrollbar */
@@ -1473,6 +1486,7 @@
      </div>
 </body>
 </html>
+
 
 
 
