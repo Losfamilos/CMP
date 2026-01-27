@@ -684,6 +684,45 @@
   .glossary-panel {
     top: 110px !important;
   }
+           @media (max-width: 600px) {
+  .bottom-nav{
+    height: auto !important;
+    padding: 0.6rem 0.8rem !important;
+    gap: 0.5rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  /* Gør alle knapper mere “mobile” */
+  .bottom-nav .nav-btn,
+  .bottom-nav .notes-toggle{
+    padding: 0.55rem 0.9rem !important;
+    font-size: 0.82rem !important;
+    line-height: 1 !important;
+  }
+
+  /* Sørg for at næste/forrige kan ligge side om side */
+  .bottom-nav #prev-btn,
+  .bottom-nav #next-btn{
+    flex: 1 1 120px !important;
+    min-width: 120px !important;
+  }
+
+  /* Talerpunkter i midten, men må gerne hoppe ned */
+  .bottom-nav #notes-toggle{
+    flex: 1 1 140px !important;
+    min-width: 140px !important;
+  }
+
+  /* Notes-panel skal starte over en højere bottom-nav */
+  .notes-panel{
+    bottom: auto !important;
+    top: auto !important;
+    /* vigtigst: læg den over bundbaren uanset højden */
+    margin-bottom: 0 !important;
+  }
+}
+
 }
 
     </style>
@@ -1393,6 +1432,7 @@
      </div>
 </body>
 </html>
+
 
 
 
