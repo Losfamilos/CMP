@@ -661,7 +661,42 @@
             line-height: 1.7;
             font-weight: 300;
         }
+/* Specifik styling til citatet på titelsiden */
+.quote-container {
+    position: relative;
+    margin-top: 1.5rem;
+    padding-left: 3rem; /* Plads til det venstre anførselstegn */
+    max-width: 850px;
+}
 
+.sub-subtitle {
+    font-family: 'Spectral', serif; /* Skift til serif for mere autoritet i citatet */
+    font-size: 1.25rem;
+    font-style: italic;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8) !important; /* Lidt tydeligere end din nuværende 0.6 */
+    margin-bottom: 0 !important;
+}
+
+/* De store grafiske anførselstegn */
+.quote-container::before {
+    content: "“";
+    position: absolute;
+    left: 0;
+    top: -10px;
+    font-family: 'Spectral', serif;
+    font-size: 5rem;
+    color: var(--accent-gold);
+    opacity: 0.5;
+    line-height: 1;
+}
+
+/* Highlight af nøglebegrebet */
+.highlight-gold {
+    color: var(--accent-gold);
+    font-style: normal;
+    font-weight: 600;
+}
        /* ================= DESKTOP → TABLET ================= */
 @media (max-width: 1200px) {
   .main-title { font-size: 2.8rem; }
@@ -894,20 +929,25 @@
                 <div class="slide-indicator" id="slide-indicator"></div>
             </div>
         </nav>
-
-        <!-- Slide 1: Title -->
-        <div class="slide active title-slide" data-slide="1">
-            <div class="slide-content">
-                <h1 class="main-title">Styrkelse af Product Risk Management & Governance</h1>
-                <div class="title-divider"></div>
-                <p class="subtitle">Fra regulatorisk nødvendighed til strategisk konkurrencefordel</p>
-                <p class="sub-subtitle">"Mange organisationer har governance på papiret – men ikke et beslutningssystem <br> 
-                    i drift. Målet er “de rigtige spørgsmål på det rigtige tidspunkt” med tydelig accountability.</p>
-                <div class="presenter-info">
-                    Præsenteret af Jeppe Astrupgaard von Barnekow | 02.02.2026
-                </div>
-            </div>
+        <!-- Slide 1: -->
+    <div class="slide active title-slide" data-slide="1">
+    <div class="slide-content">
+        <h1 class="main-title">Styrkelse af Product Risk Management & Governance</h1>
+        <div class="title-divider"></div>
+        <p class="subtitle">Fra regulatorisk nødvendighed til strategisk konkurrencefordel</p>
+        
+        <div class="quote-container">
+            <p class="sub-subtitle">
+                Mange organisationer har governance på papiret – men ikke et beslutningssystem i drift. 
+                Målet er <span class="highlight-gold">“de rigtige spørgsmål på det rigtige tidspunkt”</span> med tydelig accountability.
+            </p>
         </div>
+
+        <div class="presenter-info">
+            Præsenteret af Jeppe Astrupgaard von Barnekow | 02.02.2026
+        </div>
+    </div>
+</div>
 
         <!-- Slide 2: Burning Platform -->
         <div class="slide" data-slide="2">
@@ -1591,6 +1631,7 @@
      </div>
 </body>
 </html>
+
 
 
 
